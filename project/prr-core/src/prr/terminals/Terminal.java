@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import prr.clients.Client;
 import prr.communications.Communication;
@@ -27,7 +29,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
         private Double debts = 0.0;
         private Double payments = 0.0;
         private Client client;
-        private List<Terminal> friends;
+        private Map<String, Terminal> friends;
         private List<Communication> communications;
         private TerminalState state;
 
@@ -36,7 +38,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 this.client = client;
                 state = new StateIdle();
                 communications = new ArrayList<Communication>();
-                friends = new ArrayList<Terminal>();
+                friends = new TreeMap<String, Terminal>();
         }
 
         public abstract String getTypeName();
@@ -76,12 +78,12 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
         }
 
         public void addFriend(Terminal friend) {
-                friends.add(friend);
+                friends.put(friend.getKey(), friend);
         }
 
         public String friendsToString() {
                 List<String> friendsStrings = new ArrayList<String>();
-                for (Terminal friend : friends) {
+                for (Terminal friend : friends.values()) {
                         friendsStrings.add(friend.getKey());
                 }
                 return String.join(",", friendsStrings);
