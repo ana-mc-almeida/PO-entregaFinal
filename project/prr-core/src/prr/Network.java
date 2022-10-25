@@ -46,21 +46,21 @@ public class Network implements Serializable {
 	/**
 	 * Stores the network's clients.
 	 */
-	private final Map<String, Client> clients = new TreeMap<>();
+	private Map<String, Client> clients = new TreeMap<>();
 	/**
 	 * Stores the network's clients sorted in CASE_INSENSITIVE_ORDER.
 	 */
-	private final Map<String, Client> clientsToShow = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+	private Map<String, Client> clientsToShow = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
 	/**
 	 * Stores the network's terminals.
 	 */
-	private final Map<String, Terminal> terminals = new TreeMap<>();
+	private Map<String, Terminal> terminals = new TreeMap<>();
 
 	/**
 	 * Stores the network's communications.
 	 */
-	// private final Map<String, Client> clients = new TreeMap<>();
+	// private Map<String, Client> clients = new TreeMap<>();
 
 	/**
 	 * Read text input file and create corresponding domain entities.
