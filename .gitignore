@@ -1,10 +1,8 @@
-project/prr-app/prr-app.jar
 project/prr-core/prr-core.jar
-project/prr-app/src/prr/app/clients/DoEnableClientNotifications.class
+project/prr-app/prr-app.jar
+project/prr-app/src/prr/app/App.class
 project/prr-app/src/prr/app/clients/DoDisableClientNotifications.class
-project/prr-app/src/prr/app/lookups/DoShowClientsWithDebts.class
-project/prr-app/src/prr/app/lookups/DoShowClientsWithoutDebts.class
-project/prr-app/src/prr/app/terminal/DoAddFriend.class
+project/prr-app/src/prr/app/clients/DoEnableClientNotifications.class
 project/prr-app/src/prr/app/clients/DoRegisterClient.class
 project/prr-app/src/prr/app/clients/DoShowAllClients.class
 project/prr-app/src/prr/app/clients/DoShowClient.class
@@ -21,6 +19,8 @@ project/prr-app/src/prr/app/exceptions/Message.class
 project/prr-app/src/prr/app/exceptions/UnknownClientKeyException.class
 project/prr-app/src/prr/app/exceptions/UnknownTerminalKeyException.class
 project/prr-app/src/prr/app/lookups/DoShowAllCommunications.class
+project/prr-app/src/prr/app/lookups/DoShowClientsWithDebts.class
+project/prr-app/src/prr/app/lookups/DoShowClientsWithoutDebts.class
 project/prr-app/src/prr/app/lookups/DoShowCommunicationsFromClient.class
 project/prr-app/src/prr/app/lookups/DoShowCommunicationsToClient.class
 project/prr-app/src/prr/app/lookups/DoShowTerminalsWithPositiveBalance.class
@@ -39,6 +39,7 @@ project/prr-app/src/prr/app/main/Label.class
 project/prr-app/src/prr/app/main/Menu.class
 project/prr-app/src/prr/app/main/Message.class
 project/prr-app/src/prr/app/main/Prompt.class
+project/prr-app/src/prr/app/terminal/DoAddFriend.class
 project/prr-app/src/prr/app/terminal/DoEndInteractiveCommunication.class
 project/prr-app/src/prr/app/terminal/DoPerformPayment.class
 project/prr-app/src/prr/app/terminal/DoRemoveFriend.class
@@ -61,4 +62,3 @@ project/prr-app/src/prr/app/terminals/Label.class
 project/prr-app/src/prr/app/terminals/Menu.class
 project/prr-app/src/prr/app/terminals/Message.class
 project/prr-app/src/prr/app/terminals/Prompt.class
-project/prr-app/src/prr/app/App.class
