@@ -12,11 +12,17 @@ class DoAddFriend extends TerminalCommand {
 
 	DoAddFriend(Network context, Terminal terminal) {
 		super(Label.ADD_FRIEND, context, terminal);
-		//FIXME add command fields
+		addStringField("key", Prompt.terminalKey());
+		// FIXME add command fields
 	}
 
 	@Override
 	protected final void execute() throws CommandException {
-                //FIXME implement command
+		// FIXME implement command
+		// try{
+		// Terminal terminal = _network.getTerminalByKey(stringField("key"));
+		// _receiver.addFriend(terminal);
+		// }
+		// catch(prr.exceptions.)
 	}
 }

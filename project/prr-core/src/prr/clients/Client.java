@@ -56,12 +56,20 @@ public class Client implements Serializable {
     // return this.taxId;
     // }
 
-    public int calculatePayments() {
-        return 0;
+    public Double calculatePayments() {
+        Double payments = 0.0;
+        for (Terminal terminal : terminals) {
+            payments += terminal.getPayments();
+        }
+        return payments;
     }
 
-    public int calculateDebts() {
-        return 0;
+    public Double calculateDebts() {
+        Double debts = 0.0;
+        for (Terminal terminal : terminals) {
+            debts += terminal.getDebts();
+        }
+        return debts;
     }
 
     /*
@@ -72,7 +80,9 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "CLIENT|" + key + "|" + name + "|" + taxId + "|" + showLevel() + "|" + (allowNotifications ? "YES"
-                : "NO") + "|" + terminals.size() + "|" + calculatePayments() + "|" + calculateDebts();
+                : "NO") + "|" + terminals.size() + "|" + Math.round(calculatePayments())
+                + "|"
+                + Math.round(calculateDebts());
         // return "CLIENT|" + key + "|" + name + "|" + taxId + "|" + level.status() +
         // "|" + (allowNotifications ? "YES"
         // : "NO") + "|" + terminals.size() + "|" + calculatePayments() + "|" +
@@ -99,6 +109,10 @@ public class Client implements Serializable {
         boolean different = allowNotifications == true;
         allowNotifications = false;
         return different;
+    }
+
+    public boolean hasDebts() {
+        return this.calculateDebts() > 0;
     }
 
 }

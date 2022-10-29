@@ -51,6 +51,14 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 this.state = state;
         }
 
+        public Double getDebts() {
+                return debts;
+        }
+
+        public Double getPayments() {
+                return debts;
+        }
+
         /**
          * Checks if this terminal can end the current interactive communication.
          *

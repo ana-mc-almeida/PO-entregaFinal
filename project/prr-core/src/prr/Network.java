@@ -47,10 +47,6 @@ public class Network implements Serializable {
 	 * Stores the network's clients.
 	 */
 	private Map<String, Client> clients = new TreeMap<>();
-	/**
-	 * Stores the network's clients sorted in CASE_INSENSITIVE_ORDER.
-	 */
-	private Map<String, Client> clientsToShow = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
 	/**
 	 * Stores the network's terminals.
@@ -115,7 +111,6 @@ public class Network implements Serializable {
 
 		Client newClient = new Client(key, name, taxId);
 		clients.put(key, newClient);
-		clientsToShow.put(key, newClient);
 	}
 
 	/**
@@ -232,12 +227,11 @@ public class Network implements Serializable {
 	 * @return A sorted {@link Collection} of clients
 	 */
 	public String showAllClients() {
-		List<String> clientStrings = new ArrayList<String>();
-		for (Client client : clientsToShow.values()) {
-			clientStrings.add(client.toString());
+		Map<String, String> sortedClientsStrings = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
+		for (Client client : clients.values()) {
+			sortedClientsStrings.put(client.getKey(), client.toString());
 		}
-		return String.join("\n", clientStrings);
-
+		return String.join("\n", sortedClientsStrings.values());
 	}
 
 	/**
@@ -315,5 +309,23 @@ public class Network implements Serializable {
 	public boolean disableClientNotifications(String key) throws UnknownClientKeyException {
 		Client client = getClientByKey(key);
 		return client.disableNotifications();
+	}
+
+	public String showClientsWithDebts() {
+		Map<String, String> sortedClientsStrings = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
+		for (Client client : clients.values()) {
+			if (client.hasDebts())
+				sortedClientsStrings.put(client.getKey(), client.toString());
+		}
+		return String.join("\n", sortedClientsStrings.values());
+	}
+
+	public String showClientsWithoutDebts() {
+		Map<String, String> sortedClientsStrings = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
+		for (Client client : clients.values()) {
+			if (!client.hasDebts())
+				sortedClientsStrings.put(client.getKey(), client.toString());
+		}
+		return String.join("\n", sortedClientsStrings.values());
 	}
 }
