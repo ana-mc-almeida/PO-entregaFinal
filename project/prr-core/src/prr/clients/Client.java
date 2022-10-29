@@ -79,4 +79,26 @@ public class Client implements Serializable {
         // calculateDebts();
     }
 
+    /*
+     * return True if the new state is differente from previous:
+     * true if allowNotifications = false
+     * false if allowNotifications = true
+     */
+    public boolean enableNotifications() {
+        boolean different = allowNotifications == false;
+        allowNotifications = true;
+        return different;
+    }
+
+    /*
+     * return True if the new state is differente from previous:
+     * true if allowNotifications = true
+     * false if allowNotifications = false
+     */
+    public boolean disableNotifications() {
+        boolean different = allowNotifications == true;
+        allowNotifications = false;
+        return different;
+    }
+
 }

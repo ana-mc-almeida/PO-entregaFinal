@@ -13,11 +13,18 @@ class DoEnableClientNotifications extends Command<Network> {
 
 	DoEnableClientNotifications(Network receiver) {
 		super(Label.ENABLE_CLIENT_NOTIFICATIONS, receiver);
-		//FIXME add command fields
+		addStringField("key", Prompt.key());
+		// FIXME add command fields
 	}
 
 	@Override
 	protected final void execute() throws CommandException {
-                //FIXME implement command
+		// FIXME implement command
+		try {
+			if (!_receiver.enableClientNotifications(stringField("key")))
+				_display.popup(Message.clientNotificationsAlreadyEnabled());
+		} catch (prr.exceptions.UnknownClientKeyException e) {
+			throw new UnknownClientKeyException(e.getKey());
+		}
 	}
 }

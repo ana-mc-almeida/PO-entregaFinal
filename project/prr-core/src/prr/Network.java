@@ -307,4 +307,13 @@ public class Network implements Serializable {
 		return String.join("\n", terminalStrings);
 	}
 
+	public boolean enableClientNotifications(String key) throws UnknownClientKeyException {
+		Client client = getClientByKey(key);
+		return client.enableNotifications();
+	}
+
+	public boolean disableClientNotifications(String key) throws UnknownClientKeyException {
+		Client client = getClientByKey(key);
+		return client.disableNotifications();
+	}
 }

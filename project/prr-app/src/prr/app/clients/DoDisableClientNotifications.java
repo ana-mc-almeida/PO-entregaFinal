@@ -13,11 +13,17 @@ class DoDisableClientNotifications extends Command<Network> {
 
 	DoDisableClientNotifications(Network receiver) {
 		super(Label.DISABLE_CLIENT_NOTIFICATIONS, receiver);
-		//FIXME add command fields
+		addStringField("key", Prompt.key());
+		// FIXME add command fields
 	}
 
 	@Override
 	protected final void execute() throws CommandException {
-                //FIXME implement command
+		try {
+			if (!_receiver.disableClientNotifications(stringField("key")))
+				_display.popup(Message.clientNotificationsAlreadyDisabled());
+		} catch (prr.exceptions.UnknownClientKeyException e) {
+			throw new UnknownClientKeyException(e.getKey());
+		}
 	}
 }
