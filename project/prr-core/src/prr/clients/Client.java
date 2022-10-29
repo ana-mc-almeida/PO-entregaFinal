@@ -8,6 +8,8 @@ import javax.sound.sampled.LineUnavailableException;
 
 import prr.Network;
 import prr.terminals.Terminal;
+import prr.exceptions.ClientNotificationsAlreadyEnabledException;
+import prr.exceptions.ClientNotificationsAlreadyDisabledException;
 import prr.exceptions.DuplicateClientKeyException;
 
 public class Client implements Serializable {
@@ -89,26 +91,16 @@ public class Client implements Serializable {
         // calculateDebts();
     }
 
-    /*
-     * return True if the new state is differente from previous:
-     * true if allowNotifications = false
-     * false if allowNotifications = true
-     */
-    public boolean enableNotifications() {
-        boolean different = allowNotifications == false;
+    public void enableNotifications() throws ClientNotificationsAlreadyEnabledException {
+        if (allowNotifications == true)
+            throw new ClientNotificationsAlreadyEnabledException();
         allowNotifications = true;
-        return different;
     }
 
-    /*
-     * return True if the new state is differente from previous:
-     * true if allowNotifications = true
-     * false if allowNotifications = false
-     */
-    public boolean disableNotifications() {
-        boolean different = allowNotifications == true;
+    public void disableNotifications() throws ClientNotificationsAlreadyDisabledException {
+        if (allowNotifications == false)
+            throw new ClientNotificationsAlreadyDisabledException();
         allowNotifications = false;
-        return different;
     }
 
     public boolean hasDebts() {

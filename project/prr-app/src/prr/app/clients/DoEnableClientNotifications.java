@@ -21,10 +21,11 @@ class DoEnableClientNotifications extends Command<Network> {
 	protected final void execute() throws CommandException {
 		// FIXME implement command
 		try {
-			if (!_receiver.enableClientNotifications(stringField("key")))
-				_display.popup(Message.clientNotificationsAlreadyEnabled());
+			_receiver.enableClientNotifications(stringField("key"));
 		} catch (prr.exceptions.UnknownClientKeyException e) {
 			throw new UnknownClientKeyException(e.getKey());
+		} catch (prr.exceptions.ClientNotificationsAlreadyEnabledException e) {
+			_display.popup(Message.clientNotificationsAlreadyEnabled());
 		}
 	}
 }

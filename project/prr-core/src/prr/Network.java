@@ -9,6 +9,8 @@ import java.io.IOException;
 import prr.clients.Client;
 
 import prr.exceptions.UnrecognizedEntryException;
+import prr.exceptions.ClientNotificationsAlreadyEnabledException;
+import prr.exceptions.ClientNotificationsAlreadyDisabledException;
 import prr.exceptions.DuplicateClientKeyException;
 import prr.exceptions.DuplicateTerminalKeyException;
 import prr.exceptions.InvalidTerminalKeyException;
@@ -301,14 +303,16 @@ public class Network implements Serializable {
 		return String.join("\n", terminalStrings);
 	}
 
-	public boolean enableClientNotifications(String key) throws UnknownClientKeyException {
+	public void enableClientNotifications(String key)
+			throws UnknownClientKeyException, ClientNotificationsAlreadyEnabledException {
 		Client client = getClientByKey(key);
-		return client.enableNotifications();
+		client.enableNotifications();
 	}
 
-	public boolean disableClientNotifications(String key) throws UnknownClientKeyException {
+	public void disableClientNotifications(String key)
+			throws UnknownClientKeyException, ClientNotificationsAlreadyDisabledException {
 		Client client = getClientByKey(key);
-		return client.disableNotifications();
+		client.disableNotifications();
 	}
 
 	public String showClientsWithDebts() {

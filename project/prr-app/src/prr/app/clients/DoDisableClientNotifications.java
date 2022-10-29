@@ -20,10 +20,11 @@ class DoDisableClientNotifications extends Command<Network> {
 	@Override
 	protected final void execute() throws CommandException {
 		try {
-			if (!_receiver.disableClientNotifications(stringField("key")))
-				_display.popup(Message.clientNotificationsAlreadyDisabled());
+			_receiver.disableClientNotifications(stringField("key"));
 		} catch (prr.exceptions.UnknownClientKeyException e) {
 			throw new UnknownClientKeyException(e.getKey());
+		} catch (prr.exceptions.ClientNotificationsAlreadyDisabledException e) {
+			_display.popup(Message.clientNotificationsAlreadyDisabled());
 		}
 	}
 }
