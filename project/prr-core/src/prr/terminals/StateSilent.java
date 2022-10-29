@@ -1,10 +1,10 @@
 package prr.terminals;
 
-public class StateOff extends TerminalState {
+public class StateSilent extends TerminalState {
 
-    private String name = "OFF";
+    private String name = "SILENCE";
 
-    public StateOff(Terminal terminal) {
+    public StateSilent(Terminal terminal) {
         super(terminal);
     }
 
@@ -13,6 +13,6 @@ public class StateOff extends TerminalState {
     }
 
     public boolean canStartCommunication() {
-        return false;
+        return true;
     }
 }

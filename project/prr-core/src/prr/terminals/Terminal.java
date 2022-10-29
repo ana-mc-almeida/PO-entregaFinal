@@ -10,6 +10,9 @@ import java.util.TreeMap;
 
 import prr.clients.Client;
 import prr.communications.Communication;
+import prr.exceptions.TerminalAlreadyOffException;
+import prr.exceptions.TerminalAlreadyOnException;
+import prr.exceptions.TerminalAlreadySilentException;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -36,7 +39,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
         public Terminal(String key, Client client) {
                 this.key = key;
                 this.client = client;
-                state = new StateIdle();
+                state = new StateIdle(this);
                 communications = new ArrayList<Communication>();
                 friends = new TreeMap<String, Terminal>();
         }
@@ -78,7 +81,11 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
          **/
         public boolean canStartCommunication() {
                 // FIXME add implementation code
-                return true;
+                // if (this.state.equals(new StateBusy(this)) || this.state.equals(new
+                // StateOff(this)))
+                // return false;
+                // return true;
+                return state.canStartCommunication();
         }
 
         public boolean isUnused() {
@@ -99,12 +106,33 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
 
         @Override
         public String toString() {
-                String s = getTypeName() + "|" + key + "|" + client.getKey() + "|" + state.getName() + "|"
+                String s = getTypeName() + "|" + key + "|" + client.getKey() + "|" + state.status() + "|"
                                 + Math.round(payments)
                                 + "|"
                                 + Math.round(debts);
                 if (friends.size() != 0)
                         s += "|" + friendsToString();
                 return s;
+        }
+
+        public void turnOffTerminal() throws TerminalAlreadyOffException {
+                TerminalState newState = new StateOff(this);
+                if (state.status().equals(newState.status()))
+                        throw new TerminalAlreadyOffException();
+                setState(newState);
+        }
+
+        public void turnOnTerminal() throws TerminalAlreadyOnException {
+                TerminalState newState = new StateIdle(this);
+                if (state.status().equals(newState.status()))
+                        throw new TerminalAlreadyOnException();
+                setState(newState);
+        }
+
+        public void silenceTerminal() throws TerminalAlreadySilentException {
+                TerminalState newState = new StateSilent(this);
+                if (state.status().equals(newState.status()))
+                        throw new TerminalAlreadySilentException();
+                setState(newState);
         }
 }

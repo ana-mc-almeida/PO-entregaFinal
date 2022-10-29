@@ -21,7 +21,7 @@ import prr.terminals.BasicTerminal;
 import prr.terminals.FancyTerminal;
 import prr.terminals.StateIdle;
 import prr.terminals.StateOff;
-import prr.terminals.StateSilence;
+import prr.terminals.StateSilent;
 import prr.terminals.Terminal;
 import prr.terminals.TerminalState;
 
@@ -133,8 +133,8 @@ public class Network implements Serializable {
 	private void importTerminal(String type, String key, String keyClient, String state)
 			throws UnrecognizedEntryException, InvalidTerminalKeyException, DuplicateTerminalKeyException,
 			UnknownClientKeyException {
-		TerminalState terminalState = getTerminalState(state);
 		Terminal terminal = registerTerminal(type, key, keyClient);
+		TerminalState terminalState = getTerminalState(terminal, state);
 		terminal.setState(terminalState);
 	}
 
@@ -147,11 +147,11 @@ public class Network implements Serializable {
 	 * 
 	 * @throws UnrecognizedEntryException if some entry is not correct
 	 */
-	private TerminalState getTerminalState(String state) throws UnrecognizedEntryException {
+	private TerminalState getTerminalState(Terminal terminal, String state) throws UnrecognizedEntryException {
 		return switch (state) {
-			case "ON" -> new StateIdle();
-			case "OFF" -> new StateOff();
-			case "SILENCE" -> new StateSilence();
+			case "ON" -> new StateIdle(terminal);
+			case "OFF" -> new StateOff(terminal);
+			case "SILENCE" -> new StateSilent(terminal);
 			default -> throw new UnrecognizedEntryException(state);
 		};
 	}

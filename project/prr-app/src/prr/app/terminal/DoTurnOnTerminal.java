@@ -16,6 +16,11 @@ class DoTurnOnTerminal extends TerminalCommand {
 
 	@Override
 	protected final void execute() throws CommandException {
-                //FIXME implement command
+		// FIXME implement command
+		try {
+			_receiver.turnOnTerminal();
+		} catch (prr.exceptions.TerminalAlreadyOnException e) {
+			_display.popup(Message.alreadyOn());
+		}
 	}
 }
