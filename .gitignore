@@ -1,0 +1,7 @@
+project/prr-app/prr-app.jar
+project/prr-core/prr-core.jar
+project/prr-app/src/prr/app/clients/DoEnableClientNotifications.class
+project/prr-app/src/prr/app/clients/DoDisableClientNotifications.class
+project/prr-app/src/prr/app/lookups/DoShowClientsWithDebts.class
+project/prr-app/src/prr/app/lookups/DoShowClientsWithoutDebts.class
+project/prr-app/src/prr/app/terminal/DoAddFriend.class
