@@ -207,7 +207,8 @@ public class Network implements Serializable {
 
 		String[] friends = friendsKeys.split(",");
 		for (String friendKey : friends)
-			terminal.addFriend(getTerminalByKey(friendKey));
+			// terminal.addFriend(getTerminalByKey(friendKey));
+			terminal.addFriend(this, friendKey);
 
 	}
 

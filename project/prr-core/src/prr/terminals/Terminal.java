@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import prr.Network;
 import prr.clients.Client;
 import prr.communications.Communication;
 import prr.exceptions.TerminalAlreadyOffException;
 import prr.exceptions.TerminalAlreadyOnException;
 import prr.exceptions.TerminalAlreadySilentException;
+import prr.exceptions.UnknownTerminalKeyException;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -33,7 +35,8 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
         private Double payments = 0.0;
         private Client client;
         private Map<String, Terminal> friends;
-        private List<Communication> communications;
+        // private List<String> friends; // stor nao quer list
+        private List<Communication> communications; // verificar se é list ou map
         private TerminalState state;
 
         public Terminal(String key, Client client) {
@@ -42,6 +45,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 state = new StateIdle(this);
                 communications = new ArrayList<Communication>();
                 friends = new TreeMap<String, Terminal>();
+                // friends = new ArrayList<String>();
         }
 
         public abstract String getTypeName();
@@ -92,9 +96,31 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 return communications.size() == 0;
         }
 
-        public void addFriend(Terminal friend) {
-                friends.put(friend.getKey(), friend);
+        public void addFriend(Network context, String friendKey) throws UnknownTerminalKeyException {
+                if (!friendKey.equals(this.key)) {
+                        Terminal friend = context.getTerminalByKey(friendKey);
+                        friends.put(friend.getKey(), friend);
+                }
         }
+
+        public void removeFriend(Network context, String friendKey) throws UnknownTerminalKeyException {
+                context.getTerminalByKey(friendKey);
+                friends.remove(friendKey);
+        }
+
+        // public void addFriend(Network context, String friendKey) throws
+        // UnknownTerminalKeyException {
+        // context.getTerminalByKey(friendKey);
+        // if (!friendKey.equals(this.key))
+        // friends.add(friendKey);
+        // }
+
+        // public void removeFriend(Network context, String friendKey) throws
+        // UnknownTerminalKeyException {
+        // context.getTerminalByKey(friendKey);
+        // if (!friendKey.equals(this.key))
+        // friends.remove(friendKey);
+        // }
 
         public String friendsToString() {
                 List<String> friendsStrings = new ArrayList<String>();
@@ -103,6 +129,10 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 }
                 return String.join(",", friendsStrings);
         }
+
+        // public String friendsToString() {
+        // return String.join(",", friends);
+        // }
 
         @Override
         public String toString() {

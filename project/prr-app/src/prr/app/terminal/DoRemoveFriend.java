@@ -3,6 +3,8 @@ package prr.app.terminal;
 import prr.Network;
 import prr.terminals.Terminal;
 import pt.tecnico.uilib.menus.CommandException;
+import prr.app.exceptions.UnknownTerminalKeyException;
+
 //FIXME add more imports if needed
 
 /**
@@ -12,11 +14,17 @@ class DoRemoveFriend extends TerminalCommand {
 
 	DoRemoveFriend(Network context, Terminal terminal) {
 		super(Label.REMOVE_FRIEND, context, terminal);
-		//FIXME add command fields
+		addStringField("key", Prompt.terminalKey());
+		// FIXME add command fields
 	}
 
 	@Override
 	protected final void execute() throws CommandException {
-                //FIXME implement command
+		// FIXME implement command
+		try {
+			_receiver.removeFriend(_network, stringField("key"));
+		} catch (prr.exceptions.UnknownTerminalKeyException e) {
+			throw new UnknownTerminalKeyException(e.getKey());
+		}
 	}
 }
