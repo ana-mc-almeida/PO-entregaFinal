@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import prr.clients.Client;
-
+import prr.communications.Communication;
 import prr.exceptions.UnrecognizedEntryException;
 import prr.exceptions.ClientNotificationsAlreadyEnabledException;
 import prr.exceptions.ClientNotificationsAlreadyDisabledException;
@@ -48,17 +48,19 @@ public class Network implements Serializable {
 	/**
 	 * Stores the network's clients.
 	 */
-	private Map<String, Client> clients = new TreeMap<>();
+	private Map<String, Client> clients = new TreeMap<String, Client>();
 
 	/**
 	 * Stores the network's terminals.
 	 */
-	private Map<String, Terminal> terminals = new TreeMap<>();
+	private Map<String, Terminal> terminals = new TreeMap<String, Terminal>();
 
 	/**
 	 * Stores the network's communications.
 	 */
-	// private Map<String, Client> clients = new TreeMap<>();
+	private Map<Integer, Communication> communications = new TreeMap<Integer, Communication>();
+
+	private int communicationsUUID = 0;
 
 	/**
 	 * Read text input file and create corresponding domain entities.
@@ -263,6 +265,19 @@ public class Network implements Serializable {
 	}
 
 	/**
+	 * Show all communications known to the network,
+	 *
+	 * @return A sorted {@link Collection} of communications
+	 */
+	public String showAllCommunications() {
+		List<String> communicationStrings = new ArrayList<String>();
+		for (Communication communication : communications.values()) {
+			communicationStrings.add(communication.toString());
+		}
+		return String.join("\n", communicationStrings);
+	}
+
+	/**
 	 * Get a client by its key.
 	 *
 	 * @param key The key of the client
@@ -332,5 +347,10 @@ public class Network implements Serializable {
 				sortedClientsStrings.put(client.getKey(), client.toString());
 		}
 		return String.join("\n", sortedClientsStrings.values());
+	}
+
+	/** @return the new UUID. */
+	public int getCommunicationsUUID() {
+		return ++communicationsUUID;
 	}
 }

@@ -11,4 +11,8 @@ public class BasicTerminal extends Terminal {
     public String getTypeName() {
         return "BASIC";
     }
+
+    public boolean canDoVideoCommunication() {
+        return false;
+    }
 }

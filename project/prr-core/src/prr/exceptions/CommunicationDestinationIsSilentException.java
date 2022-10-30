@@ -1,20 +1,16 @@
 package prr.exceptions;
 
-/**
- * Terminal key does not exist
- */
-public class UnknownTerminalKeyException extends Exception {
-
+public class CommunicationDestinationIsSilentException extends Exception {
     /** Class serial number. */
     private static final long serialVersionUID = 202208091753L;
 
-    /** The unknown key. */
+    /** The given key. */
     private String _key;
 
     /**
      * @param key
      */
-    public UnknownTerminalKeyException(String key) {
+    public CommunicationDestinationIsSilentException(String key) {
         _key = key;
     }
 
@@ -22,7 +18,7 @@ public class UnknownTerminalKeyException extends Exception {
      * @param key
      * @param cause
      */
-    public UnknownTerminalKeyException(String key, Exception cause) {
+    public CommunicationDestinationIsSilentException(String key, Exception cause) {
         super(cause);
         _key = key;
     }
@@ -33,5 +29,4 @@ public class UnknownTerminalKeyException extends Exception {
     public String getKey() {
         return _key;
     }
-
 }

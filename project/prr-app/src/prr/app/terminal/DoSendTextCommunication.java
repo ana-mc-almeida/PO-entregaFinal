@@ -14,10 +14,19 @@ class DoSendTextCommunication extends TerminalCommand {
 
         DoSendTextCommunication(Network context, Terminal terminal) {
                 super(Label.SEND_TEXT_COMMUNICATION, context, terminal, receiver -> receiver.canStartCommunication());
+                addStringField("key", Prompt.terminalKey());
+                addStringField("body", Prompt.textMessage());
         }
 
         @Override
         protected final void execute() throws CommandException {
-                //FIXME implement command
+                // FIXME implement command
+                try {
+                        _receiver.sendTextCommunication(_network, stringField("key"), stringField("body"));
+                } catch (prr.exceptions.UnknownTerminalKeyException e) {
+                        throw new UnknownTerminalKeyException(e.getKey());
+                } catch (prr.exceptions.CommunicationDestinationIsOffException e) {
+                        _display.popup(Message.destinationIsOff(e.getKey()));
+                }
         }
-} 
+}

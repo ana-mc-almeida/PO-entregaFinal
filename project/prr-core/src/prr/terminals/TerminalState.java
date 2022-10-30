@@ -2,6 +2,10 @@ package prr.terminals;
 
 import java.io.Serializable;
 
+import prr.exceptions.CommunicationDestinationIsBusyException;
+import prr.exceptions.CommunicationDestinationIsOffException;
+import prr.exceptions.CommunicationDestinationIsSilentException;
+
 /**
  * Abstract terminal state.
  */
@@ -16,6 +20,13 @@ public abstract class TerminalState implements Serializable {
     public abstract String getName();
 
     public abstract boolean canStartCommunication();
+
+    public abstract boolean canEndCurrentCommunication();
+
+    public abstract boolean canReceiveTextCommunication() throws CommunicationDestinationIsOffException;
+
+    public abstract boolean canReceiveInteractiveCommunication() throws CommunicationDestinationIsOffException,
+            CommunicationDestinationIsBusyException, CommunicationDestinationIsSilentException;
 
     public String status() {
         return this.getName();

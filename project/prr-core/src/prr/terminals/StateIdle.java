@@ -15,4 +15,16 @@ public class StateIdle extends TerminalState {
     public boolean canStartCommunication() {
         return true;
     }
+
+    public boolean canEndCurrentCommunication() {
+        return false;
+    }
+
+    public boolean canReceiveTextCommunication() {
+        return true;
+    }
+
+    public boolean canReceiveInteractiveCommunication() {
+        return true;
+    }
 }

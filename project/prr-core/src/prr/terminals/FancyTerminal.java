@@ -10,4 +10,8 @@ public class FancyTerminal extends Terminal {
     public String getTypeName() {
         return "FANCY";
     }
+
+    public boolean canDoVideoCommunication() {
+        return false;
+    }
 }
