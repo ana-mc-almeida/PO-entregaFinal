@@ -8,12 +8,9 @@ public class TextCommunication extends Communication {
 
     // private String body;
 
-    public TextCommunication(Terminal origin, Terminal destination, int key, String body)
-            throws CommunicationDestinationIsOffException {
+    public TextCommunication(Terminal origin, Terminal destination, int key, String body) {
 
         super(origin, destination, key);
-
-        destination.canReceiveTextCommunication();
 
         // this.body = body;
 

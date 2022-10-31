@@ -164,9 +164,13 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                         throws UnknownTerminalKeyException, CommunicationDestinationIsOffException {
 
                 Terminal destinationTerminal = context.getTerminalByKey(destinationTerminalKey);
+                destinationTerminal.canReceiveTextCommunication();
+
                 Communication communication = new TextCommunication(this, destinationTerminal,
                                 context.getCommunicationsUUID(), body);
                 // communications.put(communication.getKey(), communication);
+
+                context.addCommunication(communication);
                 debts += communication.getPrice();
         }
 
