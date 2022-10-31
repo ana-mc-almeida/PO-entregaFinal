@@ -13,21 +13,25 @@ public class VideoCommunication extends Communication {
     private static final String name = "VIDEO";
 
     public VideoCommunication(Terminal origin, Terminal destination, int key)
-            throws CommunicationDestinationIsBusyException,
-            CommunicationDestinationIsOffException,
-            CommunicationDestinationIsSilentException,
-            CommunicationUnsupportedAtOriginException,
-            CommunicationUnsupportedAtDestinationException {
+    /*
+     * throws CommunicationDestinationIsBusyException,
+     * CommunicationDestinationIsOffException,
+     * CommunicationDestinationIsSilentException,
+     * CommunicationUnsupportedAtOriginException,
+     * CommunicationUnsupportedAtDestinationException
+     */ {
+
         super(origin, destination, key);
 
-        if (!origin.canDoVideoCommunication()) {
-            throw new CommunicationUnsupportedAtOriginException(origin.getKey(), name);
-        }
-        if (!destination.canDoVideoCommunication()) {
-            throw new CommunicationUnsupportedAtDestinationException(destination.getKey(), name);
-        }
+        // if (!origin.canDoVideoCommunication()) {
+        // throw new CommunicationUnsupportedAtOriginException(origin.getKey(), name);
+        // }
+        // if (!destination.canDoVideoCommunication()) {
+        // throw new
+        // CommunicationUnsupportedAtDestinationException(destination.getKey(), name);
+        // }
 
-        destination.canReceiveInteractiveCommunication();
+        // destination.canReceiveInteractiveCommunication();
         origin.setState(new StateBusy(origin, true));
         destination.setState(new StateBusy(destination, false));
     }

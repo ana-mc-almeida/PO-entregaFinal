@@ -15,7 +15,9 @@ public abstract class Communication implements Serializable {
     public abstract String getTypeName();
 
     public double end(int units) {
-        setOngoing(false);
+        // setOngoing(false);
+        // System.out.println("EEEEEEENNNNNNDDD");
+        setOngoing(null);
         this.units = units;
         price = getPrice();
         originTerminal.returnToPreviusState();
@@ -29,10 +31,29 @@ public abstract class Communication implements Serializable {
 
     public Communication(Terminal origin, Terminal destination, int key) {
         this.key = key;
+
         originTerminal = origin;
+        origin.addMadeCommunication(this);
+
         destinationTerminal = destination;
-        ongoing = true;
+        destination.addReceiveCommunication(this);
+
+        setOngoing(this);
     }
+
+    private void setOngoing(Communication communication) {
+        if (communication == null) {
+            ongoing = false;
+            // System.out.println("AAAAAAAAAA");
+        } else
+            ongoing = true;
+        originTerminal.setOngoing(communication);
+        destinationTerminal.setOngoing(communication);
+    }
+
+    // public void setOngoing(boolean value) {
+    // ongoing = value;
+    // }
 
     public String getStatus() {
         if (ongoing)
@@ -65,10 +86,6 @@ public abstract class Communication implements Serializable {
     }
 
     public abstract double getPrice();
-
-    public void setOngoing(boolean value) {
-        ongoing = value;
-    }
 
     @Override
     public String toString() {

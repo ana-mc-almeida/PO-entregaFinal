@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -48,14 +49,17 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
         private Map<String, Terminal> friends;
         private TerminalState state;
         // private List<Communication> communications; // verificar se é list ou map
-        private Map<Integer, Communication> communications;
+        private Map<Integer, Communication> communicationsMade;
+        private Map<Integer, Communication> communicationsReceived;
+        private Communication ongoingCommunication = null;
 
         public Terminal(String key, Client client) {
                 this.key = key;
                 this.client = client;
                 state = new StateIdle(this);
                 // communications = new ArrayList<Communication>();
-                communications = new TreeMap<Integer, Communication>();
+                communicationsMade = new TreeMap<Integer, Communication>();
+                communicationsReceived = new TreeMap<Integer, Communication>();
                 // friends = new ArrayList<String>();
                 friends = new TreeMap<String, Terminal>();
         }
@@ -74,6 +78,12 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 this.state = state;
         }
 
+        public void setOngoing(Communication communication) {
+                // if (communication == null)
+                // System.out.println("BBBBBB");
+                ongoingCommunication = communication;
+        }
+
         public TerminalState getState() {
                 return state;
         }
@@ -87,7 +97,15 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
         }
 
         public boolean isUnused() {
-                return communications.size() == 0;
+                return communicationsMade.size() == 0;
+        }
+
+        public void addMadeCommunication(Communication comm) {
+                communicationsMade.put(comm.getKey(), comm);
+        }
+
+        public void addReceiveCommunication(Communication comm) {
+                communicationsMade.put(comm.getKey(), comm);
         }
 
         public void addFriend(Network context, String friendKey) throws UnknownTerminalKeyException {
@@ -148,7 +166,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 Terminal destinationTerminal = context.getTerminalByKey(destinationTerminalKey);
                 Communication communication = new TextCommunication(this, destinationTerminal,
                                 context.getCommunicationsUUID(), body);
-                communications.put(communication.getKey(), communication);
+                // communications.put(communication.getKey(), communication);
                 debts += communication.getPrice();
         }
 
@@ -162,16 +180,33 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                         UnrecognizedEntryException {
 
                 Terminal destinationTerminal = context.getTerminalByKey(destinationTerminalKey);
+                destinationTerminal.canReceiveInteractiveCommunication();
+
+                if (type == "VIDEO")
+                        supportedVideo(destinationTerminal);
 
                 Communication communication = switch (type) {
                         case "VIDEO" ->
-                                new VideoCommunication(this, destinationTerminal, context.getCommunicationsUUID());
+                                new VideoCommunication(this, destinationTerminal,
+                                                context.getCommunicationsUUID());
                         case "VOICE" ->
                                 new VoiceCommunication(this, destinationTerminal, context.getCommunicationsUUID());
                         default -> throw new UnrecognizedEntryException(type);
                 };
 
-                communications.put(communication.getKey(), communication);
+                context.addCommunication(communication);
+        }
+
+        private void supportedVideo(Terminal destinationTerminal) throws CommunicationUnsupportedAtDestinationException,
+                        CommunicationUnsupportedAtOriginException {
+                if (!this.canDoVideoCommunication()) {
+                        throw new CommunicationUnsupportedAtOriginException(this.getKey(), "VIDEO");
+                }
+                if (!destinationTerminal.canDoVideoCommunication()) {
+                        throw new CommunicationUnsupportedAtDestinationException(
+                                        destinationTerminal.getKey(),
+                                        "VIDEO");
+                }
         }
 
         /**
@@ -210,27 +245,56 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
 
         public abstract boolean canDoVideoCommunication();
 
-        public Communication getOngoingCommunication() throws noOngoingCommunicationException {
-                for (Communication communication : communications.values()) {
-                        if (communication.getOnGoing())
-                                return communication;
-                }
-                throw new noOngoingCommunicationException();
-        }
+        // public Communication getOngoingCommunication() throws
+        // noOngoingCommunicationException {
+        // for (Communication communication : communications.values()) {
+        // if (communication.getOnGoing())
+        // return communication;
+        // }
+        // throw new noOngoingCommunicationException();
+
+        // // if (ongoingCommunication == null)
+        // // throw new noOngoingCommunicationException();
+        // // return ongoingCommunication;
+        // }
 
         public long endCurrentCommunication(int duration) throws noOngoingCommunicationException {
-                Communication communication = getOngoingCommunication();
-                double price = communication.end(duration);
+                // Communication communication = getOngoingCommunication();
+                double price = ongoingCommunication.end(duration);
                 debts += price;
                 return Math.round(price);
         }
 
         public String showOngoingCommunication() throws noOngoingCommunicationException {
-                Communication communication = getOngoingCommunication();
-                return communication.toString();
+                // Communication communication = getOngoingCommunication();
+                if (ongoingCommunication == null)
+                        throw new noOngoingCommunicationException();
+                return ongoingCommunication.toString();
+                // return getOngoingCommunication().toString();
         }
 
         public void returnToPreviusState() {
                 state.returnToPreviusState();
+        }
+
+        public Collection<Communication> getAllMadeCommunications() {
+                // List<Communication> madeCommunications = new ArrayList<Communication>();
+                // for (Communication communication : communicationsMade.values()) {
+                // sortedCommunicationsStrings.put(communication.getKey(),
+                // communication.toString());
+                // }
+                // return String.join("\n", sortedCommunicationsStrings.values());
+                return communicationsMade.values();
+        }
+
+        public Collection<Communication> getAllReceivedCommunications() {
+                // Map<Integer, String> sortedCommunicationsStrings = new TreeMap<Integer,
+                // String>();
+                // for (Communication communication : communicationsReceive.values()) {
+                // sortedCommunicationsStrings.put(communication.getKey(),
+                // communication.toString());
+                // }
+                // return String.join("\n", sortedCommunicationsStrings.values());
+                return communicationsReceived.values();
         }
 }

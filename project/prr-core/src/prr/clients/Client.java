@@ -3,10 +3,11 @@ package prr.clients;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.sound.sampled.LineUnavailableException;
+import java.util.Map;
+import java.util.TreeMap;
 
 import prr.Network;
+import prr.communications.Communication;
 import prr.terminals.Terminal;
 import prr.exceptions.ClientNotificationsAlreadyEnabledException;
 import prr.exceptions.ClientNotificationsAlreadyDisabledException;
@@ -22,7 +23,7 @@ public class Client implements Serializable {
     private int taxId;
     private boolean allowNotifications;
 
-    private List<Terminal> terminals;
+    private Map<String, Terminal> terminals;
 
     private ClientLevel level;
     // private String level = "NORMAL";
@@ -35,7 +36,7 @@ public class Client implements Serializable {
         this.taxId = taxId;
         level = new ClientNormal(this);
         allowNotifications = true;
-        terminals = new ArrayList<Terminal>();
+        terminals = new TreeMap<String, Terminal>();
     }
 
     public String getKey() {
@@ -43,7 +44,7 @@ public class Client implements Serializable {
     }
 
     public void addTerminal(Terminal terminal) {
-        terminals.add(terminal);
+        terminals.put(terminal.getKey(), terminal);
     }
 
     public String showLevel() {
@@ -60,7 +61,7 @@ public class Client implements Serializable {
 
     public Double calculatePayments() {
         Double payments = 0.0;
-        for (Terminal terminal : terminals) {
+        for (Terminal terminal : terminals.values()) {
             payments += terminal.getPayments();
         }
         return payments;
@@ -68,7 +69,7 @@ public class Client implements Serializable {
 
     public Double calculateDebts() {
         Double debts = 0.0;
-        for (Terminal terminal : terminals) {
+        for (Terminal terminal : terminals.values()) {
             debts += terminal.getDebts();
         }
         return debts;
@@ -117,6 +118,26 @@ public class Client implements Serializable {
 
     public double getPriceVoiceComm(int duration, boolean hasDiscount) {
         return level.getPriceVoiceComm(duration, hasDiscount);
+    }
+
+    public String showAllMadeCommunications() {
+        Map<Integer, String> sortedMadeCommunications = new TreeMap<Integer, String>();
+        for (Terminal terminal : terminals.values()) {
+            for (Communication communication : terminal.getAllMadeCommunications()) {
+                sortedMadeCommunications.put(communication.getKey(), communication.toString());
+            }
+        }
+        return String.join("\n", sortedMadeCommunications.values());
+    }
+
+    public String showAllReceivedCommunications() {
+        Map<Integer, String> sortedReceivedCommunications = new TreeMap<Integer, String>();
+        for (Terminal terminal : terminals.values()) {
+            for (Communication communication : terminal.getAllReceivedCommunications()) {
+                sortedReceivedCommunications.put(communication.getKey(), communication.toString());
+            }
+        }
+        return String.join("\n", sortedReceivedCommunications.values());
     }
 
 }

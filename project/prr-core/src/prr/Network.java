@@ -58,7 +58,9 @@ public class Network implements Serializable {
 	/**
 	 * Stores the network's communications.
 	 */
-	private Map<Integer, Communication> communications = new TreeMap<Integer, Communication>();
+	// private Map<Integer, Communication> communications = new TreeMap<Integer,
+	// Communication>();
+	private List<Communication> communications = new ArrayList<Communication>();
 
 	private int communicationsUUID = 0;
 
@@ -265,19 +267,6 @@ public class Network implements Serializable {
 	}
 
 	/**
-	 * Show all communications known to the network,
-	 *
-	 * @return A sorted {@link Collection} of communications
-	 */
-	public String showAllCommunications() {
-		List<String> communicationStrings = new ArrayList<String>();
-		for (Communication communication : communications.values()) {
-			communicationStrings.add(communication.toString());
-		}
-		return String.join("\n", communicationStrings);
-	}
-
-	/**
 	 * Get a client by its key.
 	 *
 	 * @param key The key of the client
@@ -352,5 +341,39 @@ public class Network implements Serializable {
 	/** @return the new UUID. */
 	public int getCommunicationsUUID() {
 		return ++communicationsUUID;
+	}
+
+	/**
+	 * Show all communications known to the network,
+	 *
+	 * @return A sorted {@link Collection} of communications
+	 */
+	public String showAllCommunications() {
+		List<String> sortedCommunicatiosStrings = new ArrayList<String>();
+		for (Communication communication : communications) {
+			sortedCommunicatiosStrings.add(communication.toString());
+		}
+		return String.join("\n", sortedCommunicatiosStrings);
+	}
+	// public String showAllCommunications() {
+	// List<String> communicationStrings = new ArrayList<String>();
+	// for (Communication communication : communications.values()) {
+	// communicationStrings.add(communication.toString());
+	// }
+	// return String.join("\n", communicationStrings);
+	// }
+
+	public String showCommunicationsFromClient(String key) throws UnknownClientKeyException {
+		Client client = getClientByKey(key);
+		return client.showAllMadeCommunications();
+	}
+
+	public String showCommunicationsToClient(String key) throws UnknownClientKeyException {
+		Client client = getClientByKey(key);
+		return client.showAllReceivedCommunications();
+	}
+
+	public void addCommunication(Communication comm) {
+		communications.add(comm);
 	}
 }
