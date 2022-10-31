@@ -20,8 +20,9 @@ public class TextCommunication extends Communication {
         setOngoing(false);
     }
 
-    public double getPrice(int numChars) {
-        return 0.0; /* FIXME */
+    public double getPrice() {
+        int numChars = body.length();
+        return getOriginTerminal().getClient().getPriceTextComm(numChars);
     }
 
     public String getTypeName() {

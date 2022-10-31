@@ -20,8 +20,10 @@ public class VoiceCommunication extends Communication {
         destination.setState(new StateBusy(destination, false));
     }
 
-    public double getPrice(int time) {
-        return 0.0; /* FIXME */
+    public double getPrice() {
+        Terminal owner = getOriginTerminal();
+        Terminal destination = getDestinationTerminal();
+        return owner.getClient().getPriceVoiceComm(duration, owner.isFriend(destination));
     }
 
     public String getTypeName() {

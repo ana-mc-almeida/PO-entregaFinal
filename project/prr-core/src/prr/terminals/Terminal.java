@@ -65,6 +65,10 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 return key;
         }
 
+        public Client getClient() {
+                return client;
+        }
+
         public void setState(TerminalState state) {
                 this.state = state;
         }
@@ -210,6 +214,10 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
 
         public boolean canReceiveTextCommunication() throws CommunicationDestinationIsOffException {
                 return state.canReceiveTextCommunication();
+        }
+
+        public boolean isFriend(Terminal friend) {
+                return friends.containsKey(friend.getKey());
         }
 
         public abstract boolean canDoVideoCommunication();

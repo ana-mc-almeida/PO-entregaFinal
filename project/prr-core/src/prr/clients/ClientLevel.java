@@ -21,4 +21,17 @@ public abstract class ClientLevel implements Serializable {
         this.tariffPlan = tariffPlan;
     }
 
+    public double getPriceTextComm(int numChars) {
+        return tariffPlan.textCommPrice(numChars);
+    }
+
+    public double getPriceVideoComm(int duration, boolean hasDiscount) {
+        return tariffPlan.videoCommPrice(duration, hasDiscount);
+    }
+
+    public double getPriceVoiceComm(int duration, boolean hasDiscount) {
+        return tariffPlan.voiceCommPrice(duration, hasDiscount);
+
+    }
+
 }

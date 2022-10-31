@@ -29,7 +29,15 @@ public abstract class Communication {
         return key;
     }
 
-    public abstract double getPrice(int unit);
+    public Terminal getOriginTerminal() {
+        return originTerminal;
+    }
+
+    public Terminal getDestinationTerminal() {
+        return destinationTerminal;
+    }
+
+    public abstract double getPrice();
 
     public void setOngoing(boolean value) {
         ongoing = value;

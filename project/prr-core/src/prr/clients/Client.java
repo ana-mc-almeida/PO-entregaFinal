@@ -107,4 +107,16 @@ public class Client implements Serializable {
         return this.calculateDebts() > 0;
     }
 
+    public double getPriceTextComm(int numChars) {
+        return level.getPriceTextComm(numChars);
+    }
+
+    public double getPriceVideoComm(int duration, boolean hasDiscount) {
+        return level.getPriceVideoComm(duration, hasDiscount);
+    }
+
+    public double getPriceVoiceComm(int duration, boolean hasDiscount) {
+        return level.getPriceVoiceComm(duration, hasDiscount);
+    }
+
 }

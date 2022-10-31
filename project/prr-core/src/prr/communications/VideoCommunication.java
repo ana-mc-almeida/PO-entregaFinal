@@ -33,8 +33,10 @@ public class VideoCommunication extends Communication {
         destination.setState(new StateBusy(destination, false));
     }
 
-    public double getPrice(int time) {
-        return 0.0; /* FIXME */
+    public double getPrice() {
+        Terminal owner = getOriginTerminal();
+        Terminal destination = getDestinationTerminal();
+        return owner.getClient().getPriceVideoComm(duration, owner.isFriend(destination));
     }
 
     public String getTypeName() {
