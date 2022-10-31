@@ -6,7 +6,7 @@ import prr.terminals.Terminal;
 
 public class TextCommunication extends Communication {
 
-    private String body;
+    // private String body;
 
     public TextCommunication(Terminal origin, Terminal destination, int key, String body)
             throws CommunicationDestinationIsOffException {
@@ -15,17 +15,17 @@ public class TextCommunication extends Communication {
 
         destination.canReceiveTextCommunication();
 
-        this.body = body;
-        // setPrice(getPrice(body.length()));
-        setOngoing(false);
+        // this.body = body;
+
+        end(body.length());
     }
 
     public double getPrice() {
-        int numChars = body.length();
-        return getOriginTerminal().getClient().getPriceTextComm(numChars);
+        return getOriginTerminal().getClient().getPriceTextComm(getUnits());
     }
 
     public String getTypeName() {
         return "TEXT";
     }
+
 }

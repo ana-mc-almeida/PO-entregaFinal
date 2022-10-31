@@ -12,6 +12,6 @@ public class FancyTerminal extends Terminal {
     }
 
     public boolean canDoVideoCommunication() {
-        return false;
+        return true;
     }
 }

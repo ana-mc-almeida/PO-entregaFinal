@@ -8,8 +8,6 @@ import prr.terminals.Terminal;
 
 public class VoiceCommunication extends Communication {
 
-    private int duration;
-
     public VoiceCommunication(Terminal origin, Terminal destination, int key)
             throws CommunicationDestinationIsBusyException,
             CommunicationDestinationIsOffException, CommunicationDestinationIsSilentException {
@@ -23,7 +21,7 @@ public class VoiceCommunication extends Communication {
     public double getPrice() {
         Terminal owner = getOriginTerminal();
         Terminal destination = getDestinationTerminal();
-        return owner.getClient().getPriceVoiceComm(duration, owner.isFriend(destination));
+        return owner.getClient().getPriceVoiceComm(getUnits(), owner.isFriend(destination));
     }
 
     public String getTypeName() {

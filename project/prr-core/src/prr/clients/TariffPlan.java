@@ -1,6 +1,8 @@
 package prr.clients;
 
-public abstract class TariffPlan {
+import java.io.Serializable;
+
+public abstract class TariffPlan implements Serializable {
 
     public abstract double textCommPrice(int numChars);
 

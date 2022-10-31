@@ -10,7 +10,6 @@ import prr.terminals.Terminal;
 
 public class VideoCommunication extends Communication {
 
-    private int duration;
     private static final String name = "VIDEO";
 
     public VideoCommunication(Terminal origin, Terminal destination, int key)
@@ -36,7 +35,7 @@ public class VideoCommunication extends Communication {
     public double getPrice() {
         Terminal owner = getOriginTerminal();
         Terminal destination = getDestinationTerminal();
-        return owner.getClient().getPriceVideoComm(duration, owner.isFriend(destination));
+        return owner.getClient().getPriceVideoComm(getUnits(), owner.isFriend(destination));
     }
 
     public String getTypeName() {

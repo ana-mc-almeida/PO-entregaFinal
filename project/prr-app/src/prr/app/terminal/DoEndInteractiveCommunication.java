@@ -12,11 +12,18 @@ import pt.tecnico.uilib.menus.CommandException;
 class DoEndInteractiveCommunication extends TerminalCommand {
 
 	DoEndInteractiveCommunication(Network context, Terminal terminal) {
-		super(Label.END_INTERACTIVE_COMMUNICATION, context, terminal, receiver -> receiver.canEndCurrentCommunication());
+		super(Label.END_INTERACTIVE_COMMUNICATION, context, terminal,
+				receiver -> receiver.canEndCurrentCommunication());
+		addIntegerField("duration", Prompt.duration());
 	}
 
 	@Override
 	protected final void execute() throws CommandException {
-                //FIXME implement command
+		// FIXME implement command
+		try {
+			_display.popup(Message.communicationCost(_receiver.endCurrentCommunication(integerField("duration"))));
+		} catch (prr.exceptions.noOngoingCommunicationException e) {
+		}
+
 	}
 }

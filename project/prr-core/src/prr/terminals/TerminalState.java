@@ -32,6 +32,9 @@ public abstract class TerminalState implements Serializable {
         return this.getName();
     }
 
+    public void returnToPreviusState() {
+    }
+
     // @Override
     // public boolean equals(Object o) {
     // if (o instanceof TerminalState) {

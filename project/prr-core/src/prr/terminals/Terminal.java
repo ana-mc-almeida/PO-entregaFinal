@@ -24,6 +24,7 @@ import prr.exceptions.TerminalAlreadyOnException;
 import prr.exceptions.TerminalAlreadySilentException;
 import prr.exceptions.UnknownTerminalKeyException;
 import prr.exceptions.UnrecognizedEntryException;
+import prr.exceptions.noOngoingCommunicationException;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -73,6 +74,10 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 this.state = state;
         }
 
+        public TerminalState getState() {
+                return state;
+        }
+
         public Double getDebts() {
                 return debts;
         }
@@ -97,20 +102,6 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 friends.remove(friendKey);
         }
 
-        // public void addFriend(Network context, String friendKey) throws
-        // UnknownTerminalKeyException {
-        // context.getTerminalByKey(friendKey);
-        // if (!friendKey.equals(this.key))
-        // friends.add(friendKey);
-        // }
-
-        // public void removeFriend(Network context, String friendKey) throws
-        // UnknownTerminalKeyException {
-        // context.getTerminalByKey(friendKey);
-        // if (!friendKey.equals(this.key))
-        // friends.remove(friendKey);
-        // }
-
         public String friendsToString() {
                 List<String> friendsStrings = new ArrayList<String>();
                 for (Terminal friend : friends.values()) {
@@ -118,10 +109,6 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 }
                 return String.join(",", friendsStrings);
         }
-
-        // public String friendsToString() {
-        // return String.join(",", friends);
-        // }
 
         @Override
         public String toString() {
@@ -221,4 +208,23 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
         }
 
         public abstract boolean canDoVideoCommunication();
+
+        public Communication getOngoingCommunication() throws noOngoingCommunicationException {
+                for (Communication communication : communications.values()) {
+                        if (communication.getOnGoing())
+                                return communication;
+                }
+                throw new noOngoingCommunicationException();
+        }
+
+        public long endCurrentCommunication(int duration) throws noOngoingCommunicationException {
+                Communication communication = getOngoingCommunication();
+                state.returnToPreviusState();
+                return Math.round(communication.end(duration));
+        }
+
+        public String showOngoingCommunication() throws noOngoingCommunicationException {
+                Communication communication = getOngoingCommunication();
+                return communication.toString();
+        }
 }

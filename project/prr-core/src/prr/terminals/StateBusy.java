@@ -6,9 +6,11 @@ public class StateBusy extends TerminalState {
 
     private String name = "BUSY";
     private boolean isOwner;
+    private TerminalState previusState;
 
     public StateBusy(Terminal terminal, boolean isOwner) {
         super(terminal);
+        previusState = terminal.getState();
         this.isOwner = isOwner;
     }
 
@@ -30,5 +32,10 @@ public class StateBusy extends TerminalState {
 
     public boolean canReceiveInteractiveCommunication() throws CommunicationDestinationIsBusyException {
         throw new CommunicationDestinationIsBusyException(terminal.getKey());
+    }
+
+    @Override
+    public void returnToPreviusState() {
+        terminal.setState(previusState);
     }
 }

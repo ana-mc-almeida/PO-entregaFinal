@@ -12,6 +12,17 @@ public abstract class Communication {
 
     public abstract String getTypeName();
 
+    public double end(int units) {
+        setOngoing(false);
+        this.units = units;
+        price = getPrice();
+        return price;
+    }
+
+    public void setUnits(int units) {
+        this.units = units;
+    }
+
     public Communication(Terminal origin, Terminal destination, int key) {
         this.key = key;
         originTerminal = origin;
@@ -29,12 +40,24 @@ public abstract class Communication {
         return key;
     }
 
+    public int getUnits() {
+        return units;
+    }
+
+    // public void setPrice(double price) {
+    // this.price = price;
+    // }
+
     public Terminal getOriginTerminal() {
         return originTerminal;
     }
 
     public Terminal getDestinationTerminal() {
         return destinationTerminal;
+    }
+
+    public boolean getOnGoing() {
+        return ongoing;
     }
 
     public abstract double getPrice();
@@ -45,11 +68,12 @@ public abstract class Communication {
 
     @Override
     public String toString() {
-        String s = getTypeName() + "|" + key + "|" + originTerminal.getKey() + "|" + destinationTerminal.getKey()
+        return getTypeName() + "|" + key + "|" + originTerminal.getKey()
+                + "|" + destinationTerminal.getKey()
                 + "|" + units
-                + "|" + price
+                + "|" + Math.round(price)
                 + "|" + getStatus();
-        return s;
+
     }
 
 }
