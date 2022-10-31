@@ -1,8 +1,10 @@
 package prr.communications;
 
+import java.io.Serializable;
+
 import prr.terminals.Terminal;
 
-public abstract class Communication {
+public abstract class Communication implements Serializable {
     private int key;
     private Terminal originTerminal;
     private Terminal destinationTerminal;
@@ -16,6 +18,8 @@ public abstract class Communication {
         setOngoing(false);
         this.units = units;
         price = getPrice();
+        originTerminal.returnToPreviusState();
+        destinationTerminal.returnToPreviusState();
         return price;
     }
 

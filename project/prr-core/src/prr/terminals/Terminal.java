@@ -83,7 +83,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
         }
 
         public Double getPayments() {
-                return debts;
+                return payments;
         }
 
         public boolean isUnused() {
@@ -149,6 +149,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 Communication communication = new TextCommunication(this, destinationTerminal,
                                 context.getCommunicationsUUID(), body);
                 communications.put(communication.getKey(), communication);
+                debts += communication.getPrice();
         }
 
         public void startInterativeCommunication(Network context, String destinationTerminalKey, String type)
@@ -219,12 +220,17 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
 
         public long endCurrentCommunication(int duration) throws noOngoingCommunicationException {
                 Communication communication = getOngoingCommunication();
-                state.returnToPreviusState();
-                return Math.round(communication.end(duration));
+                double price = communication.end(duration);
+                debts += price;
+                return Math.round(price);
         }
 
         public String showOngoingCommunication() throws noOngoingCommunicationException {
                 Communication communication = getOngoingCommunication();
                 return communication.toString();
+        }
+
+        public void returnToPreviusState() {
+                state.returnToPreviusState();
         }
 }

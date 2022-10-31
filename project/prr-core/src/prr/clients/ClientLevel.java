@@ -22,6 +22,7 @@ public abstract class ClientLevel implements Serializable {
     }
 
     public double getPriceTextComm(int numChars) {
+        // System.out.println("aaaa" + tariffPlan.textCommPrice(numChars));
         return tariffPlan.textCommPrice(numChars);
     }
 
