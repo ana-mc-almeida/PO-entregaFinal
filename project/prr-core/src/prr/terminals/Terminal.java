@@ -325,4 +325,8 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 return communication;
         }
 
+        public boolean hasPositiveBalance() {
+                return payments > debts;
+        }
+
 }

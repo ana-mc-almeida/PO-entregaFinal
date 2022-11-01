@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
 /**
@@ -60,6 +62,7 @@ public class Network implements Serializable {
 	 */
 	// private Map<Integer, Communication> communications = new TreeMap<Integer,
 	// Communication>();
+	// não precisa de ser map porque o id das comunicações são números seguidos
 	private List<Communication> communications = new ArrayList<Communication>();
 
 	private int communicationsUUID = 0;
@@ -349,6 +352,7 @@ public class Network implements Serializable {
 	 * @return A sorted {@link Collection} of communications
 	 */
 	public String showAllCommunications() {
+		// não precisa de ser map porque o id das comunicações são números seguidos
 		List<String> sortedCommunicatiosStrings = new ArrayList<String>();
 		for (Communication communication : communications) {
 			sortedCommunicatiosStrings.add(communication.toString());
@@ -375,5 +379,14 @@ public class Network implements Serializable {
 
 	public void addCommunication(Communication comm) {
 		communications.add(comm);
+	}
+
+	public String showTerminalsWithPositiveBalance() {
+		Map<String, String> sortedTerminalsString = new TreeMap<String, String>();
+		for (Terminal terminal : terminals.values()) {
+			if (terminal.hasPositiveBalance())
+				sortedTerminalsString.put(terminal.getKey(), terminal.toString());
+		}
+		return String.join("\n", sortedTerminalsString.values());
 	}
 }
