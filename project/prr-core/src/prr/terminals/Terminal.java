@@ -275,6 +275,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 // Communication communication = getOngoingCommunication();
                 double price = ongoingCommunication.end(duration);
                 debts += price;
+                client.addDebt(price);
                 return Math.round(price);
         }
 
@@ -316,6 +317,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 double price = communication.performPayment();
                 payments += price;
                 debts -= price;
+                client.performPayment(price);
         }
 
         public Communication getCommunicationByKey(int key) throws InvalidCommunicationException {

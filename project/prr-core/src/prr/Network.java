@@ -389,4 +389,14 @@ public class Network implements Serializable {
 		}
 		return String.join("\n", sortedTerminalsString.values());
 	}
+
+	public long showClientDebts(String clientKey) throws UnknownClientKeyException {
+		Client client = getClientByKey(clientKey);
+		return client.showDebts();
+	}
+
+	public long showClientPayments(String clientKey) throws UnknownClientKeyException {
+		Client client = getClientByKey(clientKey);
+		return client.showPayments();
+	}
 }

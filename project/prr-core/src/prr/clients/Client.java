@@ -30,6 +30,9 @@ public class Client implements Serializable {
     /* atributos que ainda não estão implementados */
     // private Notification[] notifications;
 
+    private double debts = 0;
+    private double payments = 0;
+
     public Client(String key, String name, int taxId) throws DuplicateClientKeyException {
         this.key = key;
         this.name = name;
@@ -59,20 +62,29 @@ public class Client implements Serializable {
     // return this.taxId;
     // }
 
-    public Double calculatePayments() {
-        Double payments = 0.0;
-        for (Terminal terminal : terminals.values()) {
-            payments += terminal.getPayments();
-        }
-        return payments;
+    // public Double calculatePayments() {
+    // Double payments = 0.0;
+    // for (Terminal terminal : terminals.values()) {
+    // payments += terminal.getPayments();
+    // }
+    // return payments;
+    // }
+
+    // public Double calculateDebts() {
+    // Double debts = 0.0;
+    // for (Terminal terminal : terminals.values()) {
+    // debts += terminal.getDebts();
+    // }
+    // return debts;
+    // }
+
+    public void addDebt(double newDebt) {
+        debts += newDebt;
     }
 
-    public Double calculateDebts() {
-        Double debts = 0.0;
-        for (Terminal terminal : terminals.values()) {
-            debts += terminal.getDebts();
-        }
-        return debts;
+    public void performPayment(double price) {
+        payments += price;
+        debts -= price;
     }
 
     /*
@@ -83,9 +95,9 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "CLIENT|" + key + "|" + name + "|" + taxId + "|" + showLevel() + "|" + (allowNotifications ? "YES"
-                : "NO") + "|" + terminals.size() + "|" + Math.round(calculatePayments())
+                : "NO") + "|" + terminals.size() + "|" + showPayments()
                 + "|"
-                + Math.round(calculateDebts());
+                + showDebts();
         // return "CLIENT|" + key + "|" + name + "|" + taxId + "|" + level.status() +
         // "|" + (allowNotifications ? "YES"
         // : "NO") + "|" + terminals.size() + "|" + calculatePayments() + "|" +
@@ -105,7 +117,7 @@ public class Client implements Serializable {
     }
 
     public boolean hasDebts() {
-        return this.calculateDebts() > 0;
+        return debts > 0;
     }
 
     public double getPriceTextComm(int numChars) {
@@ -138,6 +150,14 @@ public class Client implements Serializable {
             }
         }
         return String.join("\n", sortedReceivedCommunications.values());
+    }
+
+    public long showDebts() {
+        return Math.round(debts);
+    }
+
+    public long showPayments() {
+        return Math.round(payments);
     }
 
 }
