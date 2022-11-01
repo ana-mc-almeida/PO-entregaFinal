@@ -2,6 +2,7 @@ package prr.communications;
 
 import java.io.Serializable;
 
+import prr.exceptions.InvalidCommunicationException;
 import prr.terminals.Terminal;
 
 public abstract class Communication implements Serializable {
@@ -11,6 +12,7 @@ public abstract class Communication implements Serializable {
     private boolean ongoing;
     private double price = 0;
     private int units = 0;
+    private boolean paid;
 
     public abstract String getTypeName();
 
@@ -20,6 +22,7 @@ public abstract class Communication implements Serializable {
         setOngoing(null);
         this.units = units;
         price = getPrice();
+        paid = false;
         originTerminal.returnToPreviusState();
         destinationTerminal.returnToPreviusState();
         return price;
@@ -27,6 +30,22 @@ public abstract class Communication implements Serializable {
 
     public void setUnits(int units) {
         this.units = units;
+    }
+
+    public boolean hasEnded() {
+        return !ongoing;
+    }
+
+    public boolean hasBeenPaind() {
+        return paid;
+    }
+
+    public double performPayment() throws InvalidCommunicationException {
+        if (!this.hasEnded() || this.hasBeenPaind())
+            throw new InvalidCommunicationException(key);
+
+        paid = true;
+        return price;
     }
 
     public Communication(Terminal origin, Terminal destination, int key) {

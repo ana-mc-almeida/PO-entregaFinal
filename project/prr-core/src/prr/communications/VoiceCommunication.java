@@ -13,7 +13,6 @@ public class VoiceCommunication extends Communication {
             CommunicationDestinationIsOffException, CommunicationDestinationIsSilentException {
         super(origin, destination, key);
 
-        destination.canReceiveInteractiveCommunication();
         origin.setState(new StateBusy(origin, true));
         destination.setState(new StateBusy(destination, false));
     }

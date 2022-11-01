@@ -23,6 +23,7 @@ import prr.exceptions.CommunicationUnsupportedAtOriginException;
 import prr.exceptions.TerminalAlreadyOffException;
 import prr.exceptions.TerminalAlreadyOnException;
 import prr.exceptions.TerminalAlreadySilentException;
+import prr.exceptions.InvalidCommunicationException;
 import prr.exceptions.UnknownTerminalKeyException;
 import prr.exceptions.UnrecognizedEntryException;
 import prr.exceptions.noOngoingCommunicationException;
@@ -68,6 +69,14 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
 
         public String getKey() {
                 return key;
+        }
+
+        public long showDebts() {
+                return Math.round(debts);
+        }
+
+        public long showPayments() {
+                return Math.round(payments);
         }
 
         public Client getClient() {
@@ -301,4 +310,19 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 // return String.join("\n", sortedCommunicationsStrings.values());
                 return communicationsReceived.values();
         }
+
+        public void performPayment(int communicationKey) throws InvalidCommunicationException {
+                Communication communication = getCommunicationByKey(communicationKey);
+                double price = communication.performPayment();
+                payments += price;
+                debts -= price;
+        }
+
+        public Communication getCommunicationByKey(int key) throws InvalidCommunicationException {
+                Communication communication = communicationsMade.get(key);
+                if (communication == null)
+                        throw new InvalidCommunicationException(key);
+                return communication;
+        }
+
 }
