@@ -323,12 +323,25 @@ public class Network implements Serializable {
 	}
 
 	public String showClientsWithDebts() {
-		Map<Double, String> sortedClientsStrings = new TreeMap<Double, String>(String.CASE_INSENSITIVE_ORDER);
+		Map<String, Client> sortedClients = new TreeMap<String, Client>(String.CASE_INSENSITIVE_ORDER);
 		for (Client client : clients.values()) {
 			if (client.hasDebts())
-				sortedClientsStrings.put(client.getDebts(), client.toString());
+				sortedClients.put(client.getKey(), client);
 		}
-		return String.join("\n", sortedClientsStrings.values());
+
+		List<Client> sortedClientsByDebts = new ArrayList<Client>();
+		for (Client client : sortedClients.values()) {
+			sortedClientsByDebts.add(client);
+		}
+		sortedClientsByDebts.sort(
+				(Client c1, Client c2) -> ((int) Math.round(c1.getDebts() - c2.getDebts())));
+
+		List<String> sortedClientsStringsByDebts = new ArrayList<String>();
+		for (Client client : sortedClientsByDebts) {
+			sortedClientsStringsByDebts.add(client.toString());
+		}
+
+		return String.join("\n", sortedClientsStringsByDebts);
 	}
 
 	public String showClientsWithoutDebts() {
