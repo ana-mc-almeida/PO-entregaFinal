@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import prr.Network;
 import prr.communications.Communication;
 import prr.terminals.Terminal;
+import prr.notifications.DeliveryMethod;
 import prr.notifications.Notification;
 import prr.exceptions.ClientNotificationsAlreadyEnabledException;
 import prr.exceptions.ClientNotificationsAlreadyDisabledException;
@@ -28,6 +29,7 @@ public class Client implements Serializable {
 
     private ClientLevel level;
     private List<Notification> notifications;
+    private DeliveryMethod deliveryMethod = new WriteInClientMemory();
 
     private double debts = 0;
     private double payments = 0;
@@ -188,11 +190,10 @@ public class Client implements Serializable {
     }
 
     public void addNotification(Notification notification) {
-        notifications.add(notification);
+        deliveryMethod.addNotification(notification);
     }
 
     public String showNotifications() {
-        /* FIXME pôr a depender do deliveryMethod */
         List<String> notificationsString = new ArrayList<String>();
         for (Notification notification : notifications) {
             notificationsString.add(notification.toString());
@@ -207,5 +208,16 @@ public class Client implements Serializable {
 
     public boolean hasNotifications() {
         return notifications.size() > 0;
+    }
+
+    public class WriteInClientMemory implements DeliveryMethod {
+
+        public void addNotification(Notification notification) {
+            notifications.add(notification);
+        }
+
+        public void sendNotifications() {
+        }
+
     }
 }

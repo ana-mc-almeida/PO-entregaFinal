@@ -217,7 +217,6 @@ public class Network implements Serializable {
 	 */
 	public String showClient(String key) throws UnknownClientKeyException {
 		Client client = getClientByKey(key);
-
 		return client.toString() + (client.hasNotifications() ? ("\n" + client.showNotifications()) : "");
 	}
 
