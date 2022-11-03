@@ -6,11 +6,11 @@ public class StateBusy extends TerminalState {
 
     private String name = "BUSY";
     private boolean isOwner;
-    private TerminalState previusState;
+    private TerminalState previousState;
 
     public StateBusy(Terminal terminal, boolean isOwner) {
         super(terminal);
-        previusState = terminal.getState();
+        previousState = terminal.getState();
         this.isOwner = isOwner;
     }
 
@@ -26,16 +26,24 @@ public class StateBusy extends TerminalState {
         return isOwner;
     }
 
-    public boolean canReceiveTextCommunication() {
+    public boolean canReceiveTextCommunication(Terminal originTerminal) {
         return true;
     }
 
-    public boolean canReceiveInteractiveCommunication() throws CommunicationDestinationIsBusyException {
+    public boolean canReceiveInteractiveCommunication(Terminal originTerminal)
+            throws CommunicationDestinationIsBusyException {
+        if (originTerminal.getClient().wantNotifications())
+            terminal.addInteractiveNotification(originTerminal.getClient());
         throw new CommunicationDestinationIsBusyException(terminal.getKey());
     }
 
-    @Override
-    public void returnToPreviusState() {
-        terminal.setState(previusState);
+    // @Override
+    // public void returnToPreviousState() {
+    // terminal.setState(previousState);
+    // }
+
+    public void endCommunication() {
+        terminal.setState(previousState);
+        terminal.getState().sendNotificationsFromBusy();
     }
 }

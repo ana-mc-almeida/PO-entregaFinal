@@ -21,7 +21,7 @@ class DoShowClientPaymentsAndDebts extends Command<Network> {
 	protected final void execute() throws CommandException {
 		// FIXME implement command
 		try {
-			_displau.popup(
+			_display.popup(
 					Message.clientPaymentsAndDebts(
 							stringField("key"),
 							_receiver.showClientPayments(stringField("key")),

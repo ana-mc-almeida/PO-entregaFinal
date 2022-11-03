@@ -13,8 +13,8 @@ public class VoiceCommunication extends Communication {
             CommunicationDestinationIsOffException, CommunicationDestinationIsSilentException {
         super(origin, destination, key);
 
-        origin.setState(new StateBusy(origin, true));
-        destination.setState(new StateBusy(destination, false));
+        // origin.setState(new StateBusy(origin, true));
+        // destination.setState(new StateBusy(destination, false));
     }
 
     public double getPrice() {

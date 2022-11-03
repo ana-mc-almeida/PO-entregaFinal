@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import prr.Network;
 import prr.communications.Communication;
 import prr.terminals.Terminal;
+import prr.notifications.Notification;
 import prr.exceptions.ClientNotificationsAlreadyEnabledException;
 import prr.exceptions.ClientNotificationsAlreadyDisabledException;
 import prr.exceptions.DuplicateClientKeyException;
@@ -28,7 +29,7 @@ public class Client implements Serializable {
     private ClientLevel level;
     // private String level = "NORMAL";
     /* atributos que ainda não estão implementados */
-    // private Notification[] notifications;
+    private List<Notification> notifications;
 
     private double debts = 0;
     private double payments = 0;
@@ -40,10 +41,15 @@ public class Client implements Serializable {
         level = new ClientNormal(this);
         allowNotifications = true;
         terminals = new TreeMap<String, Terminal>();
+        notifications = new ArrayList<Notification>();
     }
 
     public String getKey() {
         return this.key;
+    }
+
+    public boolean wantNotifications() {
+        return allowNotifications;
     }
 
     public void addTerminal(Terminal terminal) {
@@ -160,4 +166,29 @@ public class Client implements Serializable {
         return Math.round(payments);
     }
 
+    public void addNotification(Notification notification) {
+        // System.out.println("addNotifications -> " + notification.getName() + "no
+        // cliente: " + this.getKey());
+        notifications.add(notification);
+        // System.out.println(notifications);
+    }
+
+    public String showNotifications() {
+        List<String> notificationsString = new ArrayList<String>();
+        for (Notification notification : notifications) {
+            notificationsString.add(notification.toString());
+        }
+        clearNotifications();
+        return String.join("\n", notificationsString);
+    }
+
+    private void clearNotifications() {
+        notifications.clear();
+    }
+
+    public boolean hasNotifications() {
+        // System.out.println("bbbb" + notifications);
+        // System.out.println("ahahahah + " + notifications.size());
+        return notifications.size() > 0;
+    }
 }

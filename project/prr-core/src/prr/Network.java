@@ -31,8 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.swing.text.StyledEditorKit.ForegroundAction;
-
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
 /**
@@ -228,7 +226,8 @@ public class Network implements Serializable {
 	 */
 	public String showClient(String key) throws UnknownClientKeyException {
 		Client client = getClientByKey(key);
-		return client.toString();
+
+		return client.toString() + (client.hasNotifications() ? ("\n" + client.showNotifications()) : "");
 	}
 
 	/**
