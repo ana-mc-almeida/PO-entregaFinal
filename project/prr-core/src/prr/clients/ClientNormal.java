@@ -10,4 +10,18 @@ public class ClientNormal extends ClientLevel {
     public String getName() {
         return "NORMAL";
     }
+
+    public void tryUpgradeAfterEndingCommunication() {
+
+    }
+
+    public void tryUpgradeAfterPayment() {
+        if (canUpgradeToGold()) {
+            getClient().setLevel(new ClientGold(getClient()));
+        }
+    }
+
+    private boolean canUpgradeToGold() {
+        return getClient().getBalance() > 500;
+    }
 }

@@ -1,8 +1,10 @@
 package prr.communications;
 
 import prr.Network;
+import prr.clients.Client;
 import prr.exceptions.CommunicationDestinationIsOffException;
 import prr.terminals.Terminal;
+import prr.clients.Client;
 
 public class TextCommunication extends Communication {
 
@@ -23,6 +25,11 @@ public class TextCommunication extends Communication {
 
     public String getTypeName() {
         return "TEXT";
+    }
+
+    public void updateClientAfterEndingCommunication(Client client) {
+        client.addStreakText();
+        client.tryToUpdateAfterEndingCommunication();
     }
 
 }

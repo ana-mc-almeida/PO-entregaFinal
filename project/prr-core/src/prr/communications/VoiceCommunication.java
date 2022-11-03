@@ -5,6 +5,7 @@ import prr.exceptions.CommunicationDestinationIsOffException;
 import prr.exceptions.CommunicationDestinationIsSilentException;
 import prr.terminals.StateBusy;
 import prr.terminals.Terminal;
+import prr.clients.Client;
 
 public class VoiceCommunication extends Communication {
 
@@ -25,5 +26,10 @@ public class VoiceCommunication extends Communication {
 
     public String getTypeName() {
         return "VOICE";
+    }
+
+    public void updateClientAfterEndingCommunication(Client client) {
+        client.addStreakVoice();
+        client.tryToUpdateAfterEndingCommunication();
     }
 }

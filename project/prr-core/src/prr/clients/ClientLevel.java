@@ -11,6 +11,10 @@ public abstract class ClientLevel implements Serializable {
         this.client = client;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
     public abstract String getName();
 
     public String show() {
@@ -34,5 +38,9 @@ public abstract class ClientLevel implements Serializable {
         return tariffPlan.voiceCommPrice(duration, hasDiscount);
 
     }
+
+    public abstract void tryUpgradeAfterPayment();
+
+    public abstract void tryUpgradeAfterEndingCommunication();
 
 }

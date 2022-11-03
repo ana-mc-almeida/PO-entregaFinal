@@ -2,6 +2,7 @@ package prr.communications;
 
 import prr.exceptions.CommunicationUnsupportedAtOriginException;
 import prr.exceptions.CommunicationUnsupportedAtDestinationException;
+import prr.clients.Client;
 import prr.exceptions.CommunicationDestinationIsBusyException;
 import prr.exceptions.CommunicationDestinationIsOffException;
 import prr.exceptions.CommunicationDestinationIsSilentException;
@@ -28,5 +29,10 @@ public class VideoCommunication extends Communication {
 
     public String getTypeName() {
         return name;
+    }
+
+    public void updateClientAfterEndingCommunication(Client client) {
+        client.addStreakVideo();
+        client.tryToUpdateAfterEndingCommunication();
     }
 };

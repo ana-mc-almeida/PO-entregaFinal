@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import prr.exceptions.InvalidCommunicationException;
 import prr.terminals.Terminal;
+import prr.clients.Client;
 
 public abstract class Communication implements Serializable {
     private int key;
@@ -16,6 +17,8 @@ public abstract class Communication implements Serializable {
 
     public abstract String getTypeName();
 
+    public abstract void updateClientAfterEndingCommunication(Client client);
+
     public double end(int units) {
         // setOngoing(false);
         // System.out.println("EEEEEEENNNNNNDDD");
@@ -25,6 +28,7 @@ public abstract class Communication implements Serializable {
         paid = false;
         // originTerminal.returnToPreviousState();
         // destinationTerminal.returnToPreviousState();
+        updateClientAfterEndingCommunication(originTerminal.getClient());
         return price;
     }
 

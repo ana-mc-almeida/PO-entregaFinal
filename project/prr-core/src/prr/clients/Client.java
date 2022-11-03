@@ -34,6 +34,10 @@ public class Client implements Serializable {
     private double debts = 0;
     private double payments = 0;
 
+    private int streaksText = 0;
+    private int streaksVideo = 0;
+    private int streaksVoice = 0;
+
     public Client(String key, String name, int taxId) throws DuplicateClientKeyException {
         this.key = key;
         this.name = name;
@@ -64,6 +68,22 @@ public class Client implements Serializable {
         return debts;
     }
 
+    public void setLevel(ClientLevel level) {
+        this.level = level;
+    }
+
+    public double getBalance() {
+        return payments - debts;
+    }
+
+    public int getStreaksVideo() {
+        return streaksVideo;
+    }
+
+    public int getStreaksText() {
+        return streaksText;
+    }
+
     public void addDebt(double newDebt) {
         debts += newDebt;
     }
@@ -71,6 +91,29 @@ public class Client implements Serializable {
     public void performPayment(double price) {
         payments += price;
         debts -= price;
+        level.tryUpgradeAfterPayment();
+    }
+
+    public void addStreakText() {
+        streaksText++;
+        streaksVideo = 0;
+        streaksVoice = 0;
+    }
+
+    public void addStreakVideo() {
+        streaksVideo++;
+        streaksText = 0;
+        streaksVoice = 0;
+    }
+
+    public void addStreakVoice() {
+        streaksVoice++;
+        streaksVideo = 0;
+        streaksText = 0;
+    }
+
+    public void tryToUpdateAfterEndingCommunication() {
+        level.tryUpgradeAfterEndingCommunication();
     }
 
     /*
