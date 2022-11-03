@@ -1,5 +1,5 @@
 package prr.exceptions;
 
-public class noOngoingCommunicationException extends Exception {
+public class NoOngoingCommunicationException extends Exception {
 
 }

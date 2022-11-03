@@ -27,7 +27,7 @@ import prr.exceptions.TerminalAlreadySilentException;
 import prr.exceptions.InvalidCommunicationException;
 import prr.exceptions.UnknownTerminalKeyException;
 import prr.exceptions.UnrecognizedEntryException;
-import prr.exceptions.noOngoingCommunicationException;
+import prr.exceptions.NoOngoingCommunicationException;
 
 /**
  * Abstract terminal.
@@ -246,9 +246,9 @@ abstract public class Terminal implements Serializable {
 
         public abstract boolean canDoVideoCommunication();
 
-        public String showOngoingCommunication() throws noOngoingCommunicationException {
+        public String showOngoingCommunication() throws NoOngoingCommunicationException {
                 if (ongoingCommunication == null)
-                        throw new noOngoingCommunicationException();
+                        throw new NoOngoingCommunicationException();
                 return ongoingCommunication.toString();
         }
 
@@ -260,7 +260,7 @@ abstract public class Terminal implements Serializable {
                 return communicationsReceived.values();
         }
 
-        public long endCurrentCommunication(int duration) throws noOngoingCommunicationException {
+        public long endCurrentCommunication(int duration) throws NoOngoingCommunicationException {
 
                 endCommunication();
                 ongoingCommunication.getDestinationTerminal().endCommunication();
