@@ -16,6 +16,7 @@ import prr.exceptions.DuplicateTerminalKeyException;
 import prr.exceptions.InvalidTerminalKeyException;
 import prr.exceptions.UnknownClientKeyException;
 import prr.exceptions.UnknownTerminalKeyException;
+import prr.exceptions.NoOngoingCommunicationException;
 
 import prr.terminals.BasicTerminal;
 import prr.terminals.FancyTerminal;
@@ -324,7 +325,7 @@ public class Network implements Serializable {
 			sortedClientsByDebts.add(client);
 		}
 		sortedClientsByDebts.sort(
-				(Client c1, Client c2) -> ((int) Math.round(c1.getDebts() - c2.getDebts())));
+				(Client c1, Client c2) -> ((int) Math.round(c2.getDebts() - c1.getDebts())));
 
 		List<String> sortedClientsStringsByDebts = new ArrayList<String>();
 		for (Client client : sortedClientsByDebts) {
