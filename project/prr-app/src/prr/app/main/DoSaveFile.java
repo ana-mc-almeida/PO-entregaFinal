@@ -6,6 +6,7 @@ import pt.tecnico.uilib.menus.Command;
 //FIXME add more imports if needed
 
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
 /**
  * Command to save a file.
@@ -28,7 +29,9 @@ class DoSaveFile extends Command<NetworkManager> {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} catch (FileNotFoundException | IOException e) {
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
