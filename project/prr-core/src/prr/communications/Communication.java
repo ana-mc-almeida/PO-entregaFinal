@@ -80,6 +80,7 @@ public abstract class Communication implements Serializable {
     }
 
     public int getUnits() {
+        // System.out.println("UUUnits " + units);
         return units;
     }
 

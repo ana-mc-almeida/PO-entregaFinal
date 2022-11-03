@@ -192,6 +192,7 @@ public class Client implements Serializable {
     }
 
     public String showNotifications() {
+        /* FIXME pôr a depender do deliveryMethod */
         List<String> notificationsString = new ArrayList<String>();
         for (Notification notification : notifications) {
             notificationsString.add(notification.toString());
