@@ -4,7 +4,6 @@ import prr.Network;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import prr.app.exceptions.UnknownClientKeyException;
-//FIXME add more imports if needed
 
 /**
  * Show communications to a client.
@@ -14,12 +13,10 @@ class DoShowCommunicationsToClient extends Command<Network> {
 	DoShowCommunicationsToClient(Network receiver) {
 		super(Label.SHOW_COMMUNICATIONS_TO_CLIENT, receiver);
 		addStringField("key", Prompt.clientKey());
-		// FIXME add command fields
 	}
 
 	@Override
 	protected final void execute() throws CommandException {
-		// FIXME implement command
 		try {
 			_display.popup(_receiver.showCommunicationsToClient(stringField("key")));
 		} catch (prr.exceptions.UnknownClientKeyException e) {

@@ -8,13 +8,13 @@ import prr.clients.Client;
 
 public class TextCommunication extends Communication {
 
-    // private String body;
+    private String body;
 
     public TextCommunication(Terminal origin, Terminal destination, int key, String body) {
 
         super(origin, destination, key);
 
-        // this.body = body;
+        this.body = body;
 
         end(body.length());
     }

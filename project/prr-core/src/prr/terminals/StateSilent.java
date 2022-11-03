@@ -55,7 +55,7 @@ public class StateSilent extends TerminalState {
     }
 
     // public void sendNotificationsFromBusy() {
-    /* não existem notificações de busy to silence */
+    // /* não existem notificações de busy to silence */
     // }
 
     public void sendNotificationsFromOff() {

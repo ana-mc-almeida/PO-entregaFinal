@@ -5,7 +5,6 @@ import prr.terminals.Terminal;
 
 public abstract class Notification {
     private Terminal terminal;
-    // private Client client;
 
     public Notification(Terminal terminal) {
         this.terminal = terminal;
@@ -18,7 +17,4 @@ public abstract class Notification {
         return getName() + "|" + terminal.getKey();
     }
 
-    // public Client getClient() {
-    // return client;
-    // }
 }

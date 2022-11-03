@@ -29,28 +29,20 @@ import prr.exceptions.UnknownTerminalKeyException;
 import prr.exceptions.UnrecognizedEntryException;
 import prr.exceptions.noOngoingCommunicationException;
 
-// FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
-
 /**
  * Abstract terminal.
  */
-abstract public class Terminal implements Serializable /* FIXME maybe addd more interfaces */ {
+abstract public class Terminal implements Serializable {
 
         /** Serial number for serialization. */
         private static final long serialVersionUID = 202208091753L;
-
-        // FIXME define attributes
-        // FIXME define contructor(s)
-        // FIXME define methods
 
         private String key;
         private Double debts = 0.0;
         private Double payments = 0.0;
         private Client client;
-        // private List<String> friends; // stor nao quer list
         private Map<String, Terminal> friends;
         private TerminalState state;
-        // private List<Communication> communications; // verificar se é list ou map
         private Map<Integer, Communication> communicationsMade;
         private Map<Integer, Communication> communicationsReceived;
         private Communication ongoingCommunication = null;
@@ -61,10 +53,8 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 this.key = key;
                 this.client = client;
                 state = new StateIdle(this);
-                // communications = new ArrayList<Communication>();
                 communicationsMade = new TreeMap<Integer, Communication>();
                 communicationsReceived = new TreeMap<Integer, Communication>();
-                // friends = new ArrayList<String>();
                 friends = new TreeMap<String, Terminal>();
                 textNotifications = new TreeMap<String, Client>();
                 interactiveNotifications = new TreeMap<String, Client>();
@@ -117,7 +107,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
         }
 
         public void addReceiveCommunication(Communication comm) {
-                communicationsMade.put(comm.getKey(), comm);
+                communicationsReceived.put(comm.getKey(), comm);
         }
 
         public void addFriend(Network context, String friendKey) throws UnknownTerminalKeyException {
@@ -151,27 +141,6 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 return s;
         }
 
-        // public void turnOffTerminal() throws TerminalAlreadyOffException {
-        // TerminalState newState = new StateOff(this);
-        // if (state.status().equals(newState.status()))
-        // throw new TerminalAlreadyOffException();
-        // setState(newState);
-        // }
-
-        // public void turnOnTerminal() throws TerminalAlreadyOnException {
-        // TerminalState newState = new StateIdle(this);
-        // if (state.status().equals(newState.status()))
-        // throw new TerminalAlreadyOnException();
-        // setState(newState);
-        // }
-
-        // public void silenceTerminal() throws TerminalAlreadySilentException {
-        // TerminalState newState = new StateSilent(this);
-        // if (state.status().equals(newState.status()))
-        // throw new TerminalAlreadySilentException();
-        // setState(newState);
-        // }
-
         public void turnOffTerminal() throws TerminalAlreadyOffException {
                 state.turnOff();
         }
@@ -192,7 +161,6 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
 
                 Communication communication = new TextCommunication(this, destinationTerminal,
                                 context.getCommunicationsUUID(), body);
-                // communications.put(communication.getKey(), communication);
 
                 context.addCommunication(communication);
                 double price = communication.getPrice();
@@ -284,10 +252,6 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 return ongoingCommunication.toString();
         }
 
-        // public void returnToPreviousState() {
-        // state.returnToPreviousState();
-        // }
-
         public Collection<Communication> getAllMadeCommunications() {
                 return communicationsMade.values();
         }
@@ -346,14 +310,5 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
         public Map<String, Client> getInteractiveNotifications() {
                 return interactiveNotifications;
         }
-
-        // public void sendAllNotifications() {
-        // for (Client client : textNotifications) {
-        // client.addNotification(notification);
-        // }
-        // for (Notification notification : interactiveNotifications) {
-        // notification.getClient().addNotification(notification);
-        // }
-        // }
 
 }

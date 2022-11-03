@@ -13,9 +13,6 @@ public class VoiceCommunication extends Communication {
             throws CommunicationDestinationIsBusyException,
             CommunicationDestinationIsOffException, CommunicationDestinationIsSilentException {
         super(origin, destination, key);
-
-        // origin.setState(new StateBusy(origin, true));
-        // destination.setState(new StateBusy(destination, false));
     }
 
     public double getPrice() {

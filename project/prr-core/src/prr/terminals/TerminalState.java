@@ -63,29 +63,4 @@ public abstract class TerminalState implements Serializable {
 
     public void sendNotificationsFromSilence() {
     }
-
-    // public void returnToPreviousState() {
-    // }
-
-    // public void addInteractiveNotification() {
-    // if (terminal.getClient().wantNotifications()) {
-    // addInteractiveNotification(getClient());
-    // }
-    // }
-
-    // public void addTextNotification() {
-    // if (getClient().wantNotifications()) {
-    // addTextNotification(getClient());
-    // }
-    // }
-
-    // @Override
-    // public boolean equals(Object o) {
-    // if (o instanceof TerminalState) {
-    // TerminalState state = (TerminalState) o;
-    // return getName().equals(o.getName); // nao funciona porque TerminalState tem
-    // getName como abstract
-    // }
-    // return false;
-    // }
 }

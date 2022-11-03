@@ -37,11 +37,6 @@ public class StateBusy extends TerminalState {
         throw new CommunicationDestinationIsBusyException(terminal.getKey());
     }
 
-    // @Override
-    // public void returnToPreviousState() {
-    // terminal.setState(previousState);
-    // }
-
     public void endCommunication() {
         terminal.setState(previousState);
         terminal.getState().sendNotificationsFromBusy();

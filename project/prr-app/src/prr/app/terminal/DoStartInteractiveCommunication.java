@@ -7,7 +7,6 @@ import prr.app.exceptions.UnknownTerminalKeyException;
 import prr.terminals.Terminal;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
 
 /**
  * Command for starting communication.
@@ -22,7 +21,6 @@ class DoStartInteractiveCommunication extends TerminalCommand {
 
 	@Override
 	protected final void execute() throws CommandException {
-		// FIXME implement command
 		try {
 			_receiver.startInterativeCommunication(_network, stringField("key"), optionField("type"));
 		} catch (prr.exceptions.UnknownTerminalKeyException e) {

@@ -31,8 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-// FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
-
 /**
  * Class Store implements a store.
  */
@@ -40,10 +38,6 @@ public class Network implements Serializable {
 
 	/** Serial number for serialization. */
 	private static final long serialVersionUID = 202208091753L;
-
-	// FIXME define attributes
-	// FIXME define contructor(s)
-	// FIXME define methods
 
 	/**
 	 * Stores the network's clients.
@@ -58,8 +52,6 @@ public class Network implements Serializable {
 	/**
 	 * Stores the network's communications.
 	 */
-	// private Map<Integer, Communication> communications = new TreeMap<Integer,
-	// Communication>();
 	// não precisa de ser map porque o id das comunicações são números seguidos
 	private List<Communication> communications = new ArrayList<Communication>();
 
@@ -87,7 +79,6 @@ public class Network implements Serializable {
 			DuplicateClientKeyException, InvalidTerminalKeyException,
 			DuplicateTerminalKeyException, UnknownClientKeyException,
 			UnknownTerminalKeyException {
-		// FIXME implement method
 		try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
 			String line;
 			while ((line = in.readLine()) != null) {
@@ -212,7 +203,6 @@ public class Network implements Serializable {
 
 		String[] friends = friendsKeys.split(",");
 		for (String friendKey : friends)
-			// terminal.addFriend(getTerminalByKey(friendKey));
 			terminal.addFriend(this, friendKey);
 
 	}
@@ -371,13 +361,6 @@ public class Network implements Serializable {
 		}
 		return String.join("\n", sortedCommunicatiosStrings);
 	}
-	// public String showAllCommunications() {
-	// List<String> communicationStrings = new ArrayList<String>();
-	// for (Communication communication : communications.values()) {
-	// communicationStrings.add(communication.toString());
-	// }
-	// return String.join("\n", communicationStrings);
-	// }
 
 	public String showCommunicationsFromClient(String key) throws UnknownClientKeyException {
 		Client client = getClientByKey(key);

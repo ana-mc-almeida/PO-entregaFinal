@@ -20,14 +20,10 @@ public abstract class Communication implements Serializable {
     public abstract void updateClientAfterEndingCommunication(Client client);
 
     public double end(int units) {
-        // setOngoing(false);
-        // System.out.println("EEEEEEENNNNNNDDD");
         setOngoing(null);
         this.units = units;
         price = getPrice();
         paid = false;
-        // originTerminal.returnToPreviousState();
-        // destinationTerminal.returnToPreviousState();
         updateClientAfterEndingCommunication(originTerminal.getClient());
         return price;
     }
@@ -67,16 +63,11 @@ public abstract class Communication implements Serializable {
     private void setOngoing(Communication communication) {
         if (communication == null) {
             ongoing = false;
-            // System.out.println("AAAAAAAAAA");
         } else
             ongoing = true;
         originTerminal.setOngoing(communication);
         destinationTerminal.setOngoing(communication);
     }
-
-    // public void setOngoing(boolean value) {
-    // ongoing = value;
-    // }
 
     public String getStatus() {
         if (ongoing)
@@ -91,10 +82,6 @@ public abstract class Communication implements Serializable {
     public int getUnits() {
         return units;
     }
-
-    // public void setPrice(double price) {
-    // this.price = price;
-    // }
 
     public Terminal getOriginTerminal() {
         return originTerminal;

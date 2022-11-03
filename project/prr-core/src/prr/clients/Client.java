@@ -27,8 +27,6 @@ public class Client implements Serializable {
     private Map<String, Terminal> terminals;
 
     private ClientLevel level;
-    // private String level = "NORMAL";
-    /* atributos que ainda não estão implementados */
     private List<Notification> notifications;
 
     private double debts = 0;
@@ -131,10 +129,6 @@ public class Client implements Serializable {
                 : "NO") + "|" + terminals.size() + "|" + showPayments()
                 + "|"
                 + showDebts();
-        // return "CLIENT|" + key + "|" + name + "|" + taxId + "|" + level.status() +
-        // "|" + (allowNotifications ? "YES"
-        // : "NO") + "|" + terminals.size() + "|" + calculatePayments() + "|" +
-        // calculateDebts();
     }
 
     public void enableNotifications() throws ClientNotificationsAlreadyEnabledException {
@@ -194,10 +188,7 @@ public class Client implements Serializable {
     }
 
     public void addNotification(Notification notification) {
-        // System.out.println("addNotifications -> " + notification.getName() + "no
-        // cliente: " + this.getKey());
         notifications.add(notification);
-        // System.out.println(notifications);
     }
 
     public String showNotifications() {
@@ -214,8 +205,6 @@ public class Client implements Serializable {
     }
 
     public boolean hasNotifications() {
-        // System.out.println("bbbb" + notifications);
-        // System.out.println("ahahahah + " + notifications.size());
         return notifications.size() > 0;
     }
 }

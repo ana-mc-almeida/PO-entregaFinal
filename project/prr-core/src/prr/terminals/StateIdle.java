@@ -59,7 +59,6 @@ public class StateIdle extends TerminalState {
 
     public void sendNotificationsFromBusy() {
         for (Client client : terminal.getInteractiveNotifications().values()) {
-            // if (client.wantNotifications())
             client.addNotification(new NotificationB2I(terminal));
         }
         terminal.getInteractiveNotifications().clear();
@@ -67,20 +66,17 @@ public class StateIdle extends TerminalState {
 
     public void sendNotificationsFromSilence() {
         for (Client client : terminal.getInteractiveNotifications().values()) {
-            // if (client.wantNotifications())
             client.addNotification(new NotificationS2I(terminal));
         }
         terminal.getInteractiveNotifications().clear();
     }
 
     public void sendNotificationsFromOff() {
-        // System.out.println("estive no sendNotificationsFromOff aaaaaaaaaaas");
 
         Map<String, Client> allNotifications = new TreeMap<String, Client>();
         allNotifications.putAll(terminal.getTextNotifications());
         allNotifications.putAll(terminal.getInteractiveNotifications());
         for (Client client : allNotifications.values()) {
-            // if (client.wantNotifications())
             client.addNotification(new NotificationO2I(terminal));
         }
 
