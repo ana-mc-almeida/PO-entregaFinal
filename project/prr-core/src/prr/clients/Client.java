@@ -60,29 +60,9 @@ public class Client implements Serializable {
         return level.show();
     }
 
-    // public String getName() {
-    // return this.name;
-    // }
-
-    // public String getTaxId() {
-    // return this.taxId;
-    // }
-
-    // public Double calculatePayments() {
-    // Double payments = 0.0;
-    // for (Terminal terminal : terminals.values()) {
-    // payments += terminal.getPayments();
-    // }
-    // return payments;
-    // }
-
-    // public Double calculateDebts() {
-    // Double debts = 0.0;
-    // for (Terminal terminal : terminals.values()) {
-    // debts += terminal.getDebts();
-    // }
-    // return debts;
-    // }
+    public double getDebts() {
+        return debts;
+    }
 
     public void addDebt(double newDebt) {
         debts += newDebt;

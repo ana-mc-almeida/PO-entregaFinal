@@ -323,10 +323,10 @@ public class Network implements Serializable {
 	}
 
 	public String showClientsWithDebts() {
-		Map<String, String> sortedClientsStrings = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
+		Map<Double, String> sortedClientsStrings = new TreeMap<Double, String>(String.CASE_INSENSITIVE_ORDER);
 		for (Client client : clients.values()) {
 			if (client.hasDebts())
-				sortedClientsStrings.put(client.getKey(), client.toString());
+				sortedClientsStrings.put(client.getDebts(), client.toString());
 		}
 		return String.join("\n", sortedClientsStrings.values());
 	}
