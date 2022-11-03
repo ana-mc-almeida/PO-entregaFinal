@@ -195,7 +195,9 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
                 // communications.put(communication.getKey(), communication);
 
                 context.addCommunication(communication);
-                debts += communication.getPrice();
+                double price = communication.getPrice();
+                debts += price;
+                client.addDebt(price);
         }
 
         public void startInterativeCommunication(Network context, String destinationTerminalKey, String type)

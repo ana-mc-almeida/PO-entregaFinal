@@ -76,6 +76,10 @@ public class Client implements Serializable {
         return payments - debts;
     }
 
+    public double getPayments() {
+        return payments;
+    }
+
     public int getStreaksVideo() {
         return streaksVideo;
     }

@@ -411,4 +411,20 @@ public class Network implements Serializable {
 		Client client = getClientByKey(clientKey);
 		return client.showPayments();
 	}
+
+	public long showGlobalPayments() {
+		double globalPayments = 0;
+		for (Client client : clients.values()) {
+			globalPayments += client.getPayments();
+		}
+		return Math.round(globalPayments);
+	}
+
+	public long showGlobalDebts() {
+		double globalDebts = 0;
+		for (Client client : clients.values()) {
+			globalDebts += client.getDebts();
+		}
+		return Math.round(globalDebts);
+	}
 }
