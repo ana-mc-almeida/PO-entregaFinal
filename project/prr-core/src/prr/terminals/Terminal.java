@@ -184,7 +184,7 @@ abstract public class Terminal implements Serializable {
 
                 destinationTerminal.canReceiveInteractiveCommunication(this);
 
-                if (type == "VIDEO")
+                if (type.equals("VIDEO"))
                         supportedVideo(destinationTerminal);
 
                 Communication communication = switch (type) {
