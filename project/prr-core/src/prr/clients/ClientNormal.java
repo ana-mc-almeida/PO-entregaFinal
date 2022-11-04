@@ -25,4 +25,14 @@ public class ClientNormal extends ClientLevel {
         // System.out.println("BALANCE = " + getClient().getBalance());
         return getClient().getBalance() > 500;
     }
+
+    public void addStreakText() {
+    }
+
+    public void addStreakVideo() {
+    }
+
+    public void addStreakVoice() {
+    }
+
 }

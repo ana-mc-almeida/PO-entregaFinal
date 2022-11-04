@@ -35,11 +35,16 @@ public abstract class ClientLevel implements Serializable {
 
     public double getPriceVoiceComm(int duration, boolean hasDiscount) {
         return tariffPlan.voiceCommPrice(duration, hasDiscount);
-
     }
 
     public abstract void tryUpgradeAfterPayment();
 
     public abstract void tryUpgradeAfterEndingCommunication();
+
+    public abstract void addStreakText();
+
+    public abstract void addStreakVideo();
+
+    public abstract void addStreakVoice();
 
 }

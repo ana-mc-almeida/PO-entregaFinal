@@ -2,6 +2,8 @@ package prr.clients;
 
 public class ClientPlatinum extends ClientLevel {
 
+    private int streaksText = 0;
+
     public ClientPlatinum(Client client) {
         super(client);
         setTariffPlan(new TariffPlanPB());
@@ -23,10 +25,22 @@ public class ClientPlatinum extends ClientLevel {
     }
 
     private boolean canUpgradeToGold() {
-        return getClient().getStreaksText() >= 2
+        return streaksText >= 2
                 && !(getClient().getBalance() < 0);
     }
 
     public void tryUpgradeAfterPayment() {
+    }
+
+    public void addStreakText() {
+        streaksText++;
+    }
+
+    public void addStreakVideo() {
+        streaksText = 0;
+    }
+
+    public void addStreakVoice() {
+        streaksText = 0;
     }
 }
