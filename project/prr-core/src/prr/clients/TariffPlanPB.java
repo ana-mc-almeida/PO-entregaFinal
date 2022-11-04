@@ -13,7 +13,7 @@ public class TariffPlanPB extends TariffPlan {
 
     public double textCommPrice(int numChars) {
         if (numChars >= 100)
-            return numChars * moreThan100;
+            return moreThan100;
         if (numChars >= 50)
             return between50and100;
         return lessThan50;

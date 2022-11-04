@@ -24,7 +24,7 @@ public abstract class Communication implements Serializable {
         this.units = units;
         price = getPrice();
         paid = false;
-        updateClientAfterEndingCommunication(originTerminal.getClient());
+        // updateClientAfterEndingCommunication(originTerminal.getClient());
         return price;
     }
 

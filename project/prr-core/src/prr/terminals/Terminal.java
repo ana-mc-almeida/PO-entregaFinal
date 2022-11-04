@@ -270,11 +270,14 @@ abstract public class Terminal implements Serializable {
         public long endCurrentCommunication(int duration) throws NoOngoingCommunicationException {
 
                 endCommunication();
-                ongoingCommunication.getDestinationTerminal().endCommunication();
+                Communication comm = ongoingCommunication;
+                comm.getDestinationTerminal().endCommunication();
 
-                double price = ongoingCommunication.end(duration);
+                double price = comm.end(duration);
                 debts += price;
                 client.addDebt(price);
+
+                comm.updateClientAfterEndingCommunication(client);
 
                 return Math.round(price);
         }

@@ -12,7 +12,6 @@ public class ClientNormal extends ClientLevel {
     }
 
     public void tryUpgradeAfterEndingCommunication() {
-
     }
 
     public void tryUpgradeAfterPayment() {
