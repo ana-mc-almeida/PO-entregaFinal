@@ -20,7 +20,6 @@ public class TariffPlanNB extends TariffPlan {
     }
 
     public double videoCommPrice(int duration, boolean hasDiscount) {
-        // System.out.println("Video -> " + duration);
         Double price = video * duration;
         if (hasDiscount)
             return price * discount;
@@ -28,7 +27,6 @@ public class TariffPlanNB extends TariffPlan {
     }
 
     public double voiceCommPrice(int duration, boolean hasDiscount) {
-        // System.out.println("Voice -> " + duration);
         Double price = voice * duration;
         if (hasDiscount)
             return price * discount;

@@ -21,7 +21,6 @@ public class ClientNormal extends ClientLevel {
     }
 
     private boolean canUpgradeToGold() {
-        // System.out.println("BALANCE = " + getClient().getBalance());
         return getClient().getBalance() > 500;
     }
 

@@ -27,7 +27,6 @@ public class TariffPlanPB extends TariffPlan {
     }
 
     public double voiceCommPrice(int duration, boolean hasDiscount) {
-        // System.out.println("Voice4 -> " + duration);
         Double price = voice * duration;
         if (hasDiscount)
             return price * discount;

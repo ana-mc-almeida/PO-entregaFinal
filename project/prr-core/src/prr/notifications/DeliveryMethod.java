@@ -7,5 +7,4 @@ public interface DeliveryMethod extends Serializable {
 
     public void addNotification(Notification notification);
 
-    // public void clearNotifications();
 }

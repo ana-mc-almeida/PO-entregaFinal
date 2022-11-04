@@ -24,7 +24,6 @@ public abstract class Communication implements Serializable {
         this.units = units;
         price = getPrice();
         paid = false;
-        // updateClientAfterEndingCommunication(originTerminal.getClient());
         return price;
     }
 
@@ -80,7 +79,6 @@ public abstract class Communication implements Serializable {
     }
 
     public int getUnits() {
-        // System.out.println("UUUnits " + units);
         return units;
     }
 
