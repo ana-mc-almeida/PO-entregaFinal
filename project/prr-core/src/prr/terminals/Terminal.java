@@ -166,6 +166,9 @@ abstract public class Terminal implements Serializable {
                 double price = communication.getPrice();
                 debts += price;
                 client.addDebt(price);
+
+                communication.updateClientAfterEndingCommunication(client);
+
         }
 
         public void startInterativeCommunication(Network context, String destinationTerminalKey, String type)
