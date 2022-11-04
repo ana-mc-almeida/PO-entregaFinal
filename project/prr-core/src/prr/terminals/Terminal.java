@@ -178,6 +178,10 @@ abstract public class Terminal implements Serializable {
                         UnrecognizedEntryException {
 
                 Terminal destinationTerminal = context.getTerminalByKey(destinationTerminalKey);
+
+                if (destinationTerminal.getKey().equals(this.key))
+                        throw new CommunicationDestinationIsBusyException(this.key);
+
                 destinationTerminal.canReceiveInteractiveCommunication(this);
 
                 if (type == "VIDEO")
