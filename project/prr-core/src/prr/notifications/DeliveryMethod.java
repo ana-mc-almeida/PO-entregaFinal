@@ -1,6 +1,8 @@
 package prr.notifications;
 
-public interface DeliveryMethod {
+import java.io.Serializable;
+
+public interface DeliveryMethod extends Serializable {
     public void sendNotifications();
 
     public void addNotification(Notification notification);
